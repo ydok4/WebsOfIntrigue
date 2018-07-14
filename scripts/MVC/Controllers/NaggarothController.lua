@@ -12,6 +12,7 @@ require 'scripts/Resources/DarkElves/CharacterData/Titles/DarkElfTitles'
 require 'scripts/Resources/DarkElves/CharacterData/Traits/DarkElfTraits'
 require 'scripts/Resources/DarkElves/CharacterData/Actions/DarkElfActions'
 require 'scripts/Resources/DarkElves/CharacterData/Backgrounds/DarkElfBackgrounds'
+require 'scripts/Resources/DarkElves/CharacterData/Natures/DarkElfNatures'
 require 'scripts/Resources/DarkElves/CharacterData/Careers/DarkElfCareers'
 
 
@@ -23,6 +24,7 @@ local DarkElfResources = {
     Traits = DarkElfTraits,
     Actions = DarkElfActions,
     Backgrounds = DarkElfBackgrounds,
+    Natures = DarkElfNatures,
     Careers = DarkElfCareers,
     Factions = DarkElfFactions,
     Webs = DarkElfWebs,
