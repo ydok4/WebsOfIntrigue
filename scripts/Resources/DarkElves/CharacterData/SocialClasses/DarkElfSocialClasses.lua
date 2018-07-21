@@ -1,5 +1,5 @@
 DarkElfSocialClasses = {
-    Gold = {
+    {
       Name = "Gold",
       Description = "",
       MinimumAttributes = 
@@ -9,9 +9,10 @@ DarkElfSocialClasses = {
            Value = 50,
         },
       },
-      AppearanceChance = 20,
+      AppearanceChance = 30,
+      AvailableRaces = {"DarkElf",},
     },
-    Silver = {
+    {
       Name = "Silver",
       Description = "",
       MinimumAttributes = 
@@ -21,9 +22,10 @@ DarkElfSocialClasses = {
          Value = 20,
         },
       },
-      AppearanceChance = 30,
+      AppearanceChance = 40,
+      AvailableRaces = {"DarkElf",},
     },
-    Bronze = {
+    {
       Name = "Bronze",
       Description = "",
       MinimumAttributes = 
@@ -32,17 +34,20 @@ DarkElfSocialClasses = {
            Attribute = "Wealth",
            Value = 5,
         },
-        AppearanceChance = 80,
       },
+      AppearanceChance = 80,
+      AvailableRaces = {"DarkElf",},
     },
-    --[[ Slave = {
+    {
       Name = "Slave",
       Description = "",
       MinimumAttributes = {
-       {
-         Attribute = "Wealth",
-         Value = 0,
+         {
+           Attribute = "Wealth",
+           Value = 0,
+        },
       },
-      AppearanceChance = 10,
-    }, --]]
+      AppearanceChance = 100,
+      AvailableRaces = {"DarkElf", "Dwarf", "Empire", "Bretonnian", "HighElf",},
+    }, 
   }

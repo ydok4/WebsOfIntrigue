@@ -1,0 +1,5 @@
+DarkElfArchetypes = {
+    "Military",
+    "Civilian",
+    "Religious",
+  }

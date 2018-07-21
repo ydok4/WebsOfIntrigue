@@ -5,6 +5,7 @@
     Memberships = {},
     
     Background = "",
+    Race = "",
     -- SocialClass object
     SocialClass = {},
     -- List of Career string identifiers

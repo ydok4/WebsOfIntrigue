@@ -3,9 +3,10 @@
     -- 1 to 5
     Size = 0,
     SupportedBackgrounds = {},
-    
+    SocialClassModifier = 0,
     Characters = {},
-    Children = {},
+    ChildWebs = {},
+    InternalWebs = {},
   }
   
   

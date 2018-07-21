@@ -8,7 +8,9 @@ require 'scripts/Resources/DarkElves/WebData/Factions/DarkElfFactions'
 require 'scripts/Resources/DarkElves/WebData/Webs/DarkElfWebs'
 
 require 'scripts/Resources/DarkElves/CharacterData/Names/DarkElfNames'
+require 'scripts/Resources/DarkElves/CharacterData/Archetypes/DarkElfArchetypes'
 require 'scripts/Resources/DarkElves/CharacterData/Titles/DarkElfTitles'
+require 'scripts/Resources/DarkElves/CharacterData/SocialClasses/DarkElfSocialClasses'
 require 'scripts/Resources/DarkElves/CharacterData/Traits/DarkElfTraits'
 require 'scripts/Resources/DarkElves/CharacterData/Actions/DarkElfActions'
 require 'scripts/Resources/DarkElves/CharacterData/Backgrounds/DarkElfBackgrounds'
@@ -19,7 +21,9 @@ require 'scripts/Resources/DarkElves/CharacterData/Careers/DarkElfCareers'
 local DarkElfResources = {
     SpecialCharacters = DarkElfSpecialCharacters,
     Names = DarkElfNames,
+    Archetypes = DarkElfArchetypes,
     Titles = DarkElfTitles,
+    SocialClasses = DarkElfSocialClasses,
     Religions = DarkElfReligions,
     Traits = DarkElfTraits,
     Actions = DarkElfActions,
