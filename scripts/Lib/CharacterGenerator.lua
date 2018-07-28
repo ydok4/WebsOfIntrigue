@@ -1,6 +1,9 @@
+require 'scripts/MVC/Models/Name'
+require 'scripts/MVC/Models/Membership'
+
 require 'scripts/Lib/DataHelpers'
 
-function GenerateGender(isSexless, careers)
+function GenerateGender(isSexless, careers, raceCareers)
   if isSexless and isSexless == true then
     return "Sexless";
   else
@@ -17,7 +20,7 @@ function GenerateGender(isSexless, careers)
     end
 
     if maleExcluded == false and femaleExcluded == false then
-      if Random(2) == 0 then
+      if Random(2) == 2 then
         return "Male"
       else
         return "Female"
@@ -36,6 +39,7 @@ function GenerateSocialClass(raceSocialClasses, socialClassModifier)
         return socialClass;
     end
   end
+  return 
 end
 
 function GenerateName(raceNames, gender);
@@ -45,6 +49,11 @@ function GenerateName(raceNames, gender);
   
   local firstNameData = genderFirstNames[Random(#genderFirstNames)];
   local surnameData = genderSurnames[Random(#genderSurnames)];
+  
+  return Name:new({
+    FirstName = firstNameData.Name,
+    Surnam = surnameData.Name,
+  });
 end
 
 function GetRace(socialClass)
@@ -70,4 +79,47 @@ function GenerateCareer(raceCareers, webCareers, background, socialClass)
   potentialCareers = FindDataItemsInTable(potentialCareers, "SocialClasses", {socialClass.Name, "Any"});
 
   return potentialCareers[Random(#potentialCareers)];
+end
+
+function GetValidBackgroundFromCareers(raceBackgrounds, raceCareers, careers)
+  local validBackgrounds = {};
+  for key,background in pairs(raceBackgrounds) do
+    local validBackground = true;
+    for key,career in pairs(careers) do
+      local careerData = FindFirstDataInTable(raceCareers, "Name", {career});
+      if career.ExcludedBackgrounds and AreValuesInList(career.ExcludedBackgrounds, {background}) then
+        validBackground = false;
+        break;
+      end
+    end
+      
+    if validBackground == true then
+      validBackgrounds[#validBackgrounds + 1] = background; 
+    end
+  end
+  
+  return validBackgrounds[Random(#validBackgrounds)];
+end
+
+function GetValidSocialClassFromCareers(raceSocialClasses, careers)
+  local validSocialClasses = {};
+  
+  for key,career in pairs(careers) do
+    for key,socialClass in pairs(career.SocialClasses) do
+        validSocialClasses[#validSocialClasses + 1] = FindFirstDataInTable(raceSocialClasses, "Name", {socialClass});
+    end
+  end
+    
+  return validSocialClasses[Random(#validSocialClasses)];
+end
+
+function GenerateMembershipForFaction(faction, rank, webUUID)
+  local memberships = {};
+  memberships[#memberships + 1] = Membership:new({
+    FactionName = faction,
+    WebUUID = webUUID,
+    Rank = rank.Name,
+    IsKnownMember = Roll100(rank.StealthValue),
+  });
+  return memberships;
 end

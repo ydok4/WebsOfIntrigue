@@ -34,6 +34,40 @@ DarkElfCareers = {
     SocialClasses = {"Gold", "Silver", "Bronze", },
     ExcludedGender = "",
   },
+  Noble = {
+    Name = "Noble",
+    Archetype = "Civilian",
+    CareerLevel = 1,
+    GrantedMemberships = {},
+    
+    Actions = {"Serve", },
+    Traits = {"Arrogant", },
+    
+    ExitCareers = {},
+    Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
+    
+    Backgrounds = {"Noble" },
+    ExcludedBackgrounds = {"Slave", },
+    SocialClasses = {"Gold", },
+    ExcludedGender = "",
+  },
+  Merchant = {
+    Name = "Merchant",
+    Archetype = "Civilian",
+    CareerLevel = 1,
+    GrantedMemberships = {},
+    
+    Actions = {"Serve", },
+    Traits = {"Arrogant", },
+    
+    ExitCareers = {},
+    Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
+    
+    Backgrounds = {"Noble", "Urban", },
+    ExcludedBackgrounds = {"Slave", },
+    SocialClasses = {"Gold", "Silver",},
+    ExcludedGender = "",
+  },
   Slave = {
     Name = "Slave",
     Archetype = "Civilian",
@@ -106,6 +140,57 @@ DarkElfCareers = {
     SocialClasses = {"Gold", "Silver", "Bronze", },
     ExcludedGender = "",
   },
+  Corsair = {
+    Name = "Corsair",
+    Archetype = "Military",
+    CareerLevel = 1,
+    GrantedMemberships = {},
+    
+    Actions = {"Serve", "Train",},
+    Traits = {"MurderousProwess", "Sadistic", },
+    
+    ExitCareers = {"Reaver", "Musician", "StandardBearer", },
+    Goals = {"AdvanceCareer", "Survive"}, 
+    
+    Backgrounds = {"Any" },
+    ExcludedBackgrounds = {"Slave" },
+    SocialClasses = {"Gold", "Silver", "Bronze", },
+    ExcludedGender = "",
+  },
+  Reaver = {
+    Name = "Reaver",
+    Archetype = "Military",
+    CareerLevel = 1,
+    GrantedMemberships = {},
+    
+    Actions = {"Serve", "Train",},
+    Traits = {"MurderousProwess", "Sadistic", },
+    
+    ExitCareers = {"FleetMaster", "Musician", "StandardBearer", },
+    Goals = {"AdvanceCareer", "Survive"}, 
+    
+    Backgrounds = {"Any" },
+    ExcludedBackgrounds = {"Slave" },
+    SocialClasses = {"Gold", "Silver", "Bronze", },
+    ExcludedGender = "",
+  },
+  FleetMaster = {
+    Name = "Darkshard",
+    Archetype = "Military",
+    CareerLevel = 1,
+    GrantedMemberships = {},
+    
+    Actions = {"Serve", "Train",},
+    Traits = {"MurderousProwess", "Sadistic", },
+    
+    ExitCareers = {"FleetMaster", "Musician", "StandardBearer", },
+    Goals = {"AdvanceCareer", "Survive"}, 
+    
+    Backgrounds = {"Any" },
+    ExcludedBackgrounds = {"Slave" },
+    SocialClasses = {"Gold", "Silver", "Bronze", },
+    ExcludedGender = "",
+  },
   Darkshard = {
     Name = "Darkshard",
     Archetype = "Military",
@@ -149,7 +234,24 @@ DarkElfCareers = {
     Actions = {"ServeMalekith", "Train", "ObeyLoyaltyOwner", "KillLoyaltyOwner"},
     Traits = {"MurderousProwess", "Fearless", },
     
-    ExitCareers = {"BlackGuardCaptain", },
+    ExitCareers = {"CaptainOfTheBlackGuard", },
+    Goals = {"Survive"}, 
+    
+    Backgrounds = {"Any" },
+    ExcludedBackgrounds = {"Slave" },
+    SocialClasses = {"Gold", "Silver", "Bronze", },
+    ExcludedGender = "Female",
+  },
+  CaptainOfTheBlackGuard = {
+    Name = "Captain of the Black Guard",
+    Archetype = "Military",
+    CareerLevel = 3,
+    GrantedMemberships = {},
+    
+    Actions = {"ServeMalekith", "Train", "ObeyLoyaltyOwner", "KillLoyaltyOwner"},
+    Traits = {"MurderousProwess", "Fearless", },
+    
+    ExitCareers = {"", },
     Goals = {"Survive"}, 
     
     Backgrounds = {"Any" },

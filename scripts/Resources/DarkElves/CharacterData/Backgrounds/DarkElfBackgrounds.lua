@@ -13,11 +13,11 @@ DarkElfBackgrounds = {
     },
     Urban = {
       Name = "Urban",
-      SocialClasses = {"Gold","Silver", "Bronze", "Slave",},
+      SocialClasses = {"Gold","Silver", "Bronze",},
     },
     Wanderer = {
       Name = "Wanderer",
-      SocialClasses = {"Gold","Silver", "Bronze", "Slave",},
+      SocialClasses = {"Gold","Silver", "Bronze", },
     },
     Autarii = {
       Name = "Autarii",
@@ -25,6 +25,10 @@ DarkElfBackgrounds = {
     },
     Seafarer = {
       Name = "Seafarer",
+      SocialClasses = {"Gold","Silver", "Bronze",},
+    },
+    Military = {
+      Name = "Military",
       SocialClasses = {"Gold","Silver", "Bronze",},
     },
     Slave = {

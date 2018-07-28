@@ -1,12 +1,15 @@
 require 'scripts/Lib/CharacterHelpers'
 
 
-function CreateWeb(RaceResources, webName)
+function CreateWeb(RaceResources, webName, parentName, parentUUID)
   --  Find the web by name
   local webSchema = RaceResources.Webs[webName];
   
   local web = Web:new({
+    UUID = GenerateUUID(),
+    ParentUUID = parentUUID,
     Name = webSchema.Name,
+    ParentName = parentName,
     Population = webSchema.Population,
     SupportedBackgrounds = webSchema.SupportedBackgrounds,
     Size = webSchema.Size,
@@ -22,7 +25,7 @@ function CreateWeb(RaceResources, webName)
     local webChildren = {};
     for key,value in pairs(webSchema.ChildWebs) do
       
-      local childWeb = CreateWeb(RaceResources, value);
+      local childWeb = CreateWeb(RaceResources, value, parentName, parentUUID);
       webChildren[#webChildren + 1] = childWeb;
       
     end
@@ -35,7 +38,7 @@ function CreateWeb(RaceResources, webName)
     local internalWebs = {};
     for key,value in pairs(webSchema.InternalWebs) do
       
-      local internalWeb = CreateWeb(RaceResources, value);
+      local internalWeb = CreateWeb(RaceResources, value, parentName, parentUUID);
       internalWebs[#internalWebs + 1] = internalWeb;
       
     end

@@ -1,9 +1,9 @@
   Membership = {
-    CharacterUUID = "",
-    LoyaltyValue = 0,
-    LoyaltyValuePlayerKnown = 0,
-    -- List of LoyaltyHistory objects
-    LoyaltyHistory = {},
+    FactionName = "",
+    -- The web where this character holds membership
+    WebUUID = "",
+    Rank = 0,
+    IsKnownMember = true,
   }
   
   

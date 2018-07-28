@@ -35,6 +35,6 @@ local DarkElfResources = {
   }
   
   function InitialiseNaggaroth()
-    local web = CreateWeb(DarkElfResources, "Naggaroth");
+    local web = CreateWeb(DarkElfResources, "Naggaroth", "", "");
     local test = "";
   end
