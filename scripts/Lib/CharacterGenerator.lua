@@ -52,7 +52,7 @@ function GenerateName(raceNames, gender);
   
   return Name:new({
     FirstName = firstNameData.Name,
-    Surnam = surnameData.Name,
+    Surname = surnameData.Name,
   });
 end
 
