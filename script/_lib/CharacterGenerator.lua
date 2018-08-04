@@ -1,7 +1,7 @@
-require 'scripts/MVC/Models/Name'
-require 'scripts/MVC/Models/Membership'
+require 'script/_lib/MVC/Models/Name'
+require 'script/_lib/MVC/Models/Membership'
 
-require 'scripts/Lib/DataHelpers'
+require 'script/_lib/DataHelpers'
 
 function GenerateGender(isSexless, careers, raceCareers)
   if isSexless and isSexless == true then
@@ -42,7 +42,7 @@ function GenerateSocialClass(raceSocialClasses, socialClassModifier)
   return 
 end
 
-function GenerateName(raceNames, gender);
+function GenerateName(raceNames, gender)
   local genderNames = FindDataItemsInTable(raceNames, "Gender", {gender, "Both"});
   local genderFirstNames = FindDataItemsInTable(genderNames, "Type", {"FirstName"});
   local genderSurnames = FindDataItemsInTable(genderNames, "Type", {"Surname"});

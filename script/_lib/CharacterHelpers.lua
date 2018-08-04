@@ -1,7 +1,7 @@
-require 'scripts/Lib/DataHelpers'
-require 'scripts/Lib/CharacterGenerator'
+require 'script/_lib/DataHelpers'
+require 'script/_lib/CharacterGenerator'
 
-require 'scripts/MVC/Models/Character'
+require 'script/_lib/MVC/Models/Character'
 
 local RaceNames = {};
 local RaceTitles = {};

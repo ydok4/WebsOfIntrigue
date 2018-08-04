@@ -1,4 +1,4 @@
-require 'scripts/Lib/CharacterHelpers'
+require 'script/_lib/CharacterHelpers'
 
 
 function CreateWeb(RaceResources, webName, parentName, parentUUID)
