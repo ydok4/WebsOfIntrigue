@@ -17,6 +17,7 @@ function CreateWeb(RaceResources, webName, parentName, parentUUID)
     Characters = CreateCharactersForWeb(RaceResources, webSchema),
     ChildWebs = {},
     InternalWebs = {},
+    Type = webSchema.Type,
   });
       
       
@@ -49,3 +50,32 @@ function CreateWeb(RaceResources, webName, parentName, parentUUID)
   return web;
 end
 
+function GetWebText(webType, webData)
+  if not webData then
+    Custom_Log("ERROR: No Web data");
+    return {};
+  end
+  webText = {};
+  for key,web in pairs(webData) do
+    --Custom_Log(web.Name);
+    if web.Type == webType then
+      webText[#webText + 1] = web.Name;
+    end
+    GetChildWebNameFromWeb(web, webType, webText);
+  end
+  
+  return webText;
+end
+
+function GetChildWebNameFromWeb(web, webType, webText)
+  if not web then
+    return;
+  end
+  for key, childWeb in pairs(web.ChildWebs) do
+    --Custom_Log(childWeb.Name);
+    if childWeb.Type == webType then
+      webText[#webText + 1] = childWeb.Name;
+    end
+    GetChildWebNameFromWeb(childWeb, webType, webText);
+  end
+end
