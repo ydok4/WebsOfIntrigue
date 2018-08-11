@@ -1,4 +1,5 @@
   Character = {
+    UUID = "",
     Name = {},
     Gender = "",
     -- List of Membership Objects
@@ -43,4 +44,8 @@ function Character:new (o)
     setmetatable(o, self)
     self.__index = self
     return o
-  end
+end
+
+function Character:GetCharacterName()
+  return self.Name.FirstName.." "..self.Name.Surname;
+end

@@ -27,7 +27,7 @@ DarkElfWebs = {
   },
   Naggarond = {
     Name = "Naggarond",
-    Type = "RaceCapital",
+    Type = "ProvincalCapital",
     Population = 5,
     SupportedBackgrounds = {"Nobility", "Mercantile", "Rural", "Slave",},
     SupportedCareers = {},

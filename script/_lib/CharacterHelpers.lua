@@ -156,6 +156,7 @@ function GenerateCharacter(web)
   
   
   local character = Character:new({
+      UUID = GenerateUUID(),
       Name = name,
       Gender = gender,
       Memberships = {},

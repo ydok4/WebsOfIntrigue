@@ -14,8 +14,7 @@ function webs_of_intrigue(isIDE)
   Custom_Log("Webs of Intrigue START");
   webs[#webs + 1] = InitialiseNaggaroth();
 	Custom_Log("Webs of Intrigue Naggaroth completed");
-  
-  --CreateComponentsForWebType("Continent", nil, webs);
+
   if not isIDE then
     Custom_Log("Setting up UI listeners");
     InitialiseUIListeners(webs);

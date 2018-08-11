@@ -54,9 +54,12 @@ function FindDataItemsInTable(table, field, values)
   return items;
 end
 
-function AreValuesInList(list, values)
+function AreValuesInList(list, values, doLog)
   for key1,listItem in pairs(list) do
     for key2,value in pairs(values) do
+      if doLog then
+        Custom_Log("listItem: "..listItem.." value: "..value);
+      end
       if listItem == value then
         return true;
       end
