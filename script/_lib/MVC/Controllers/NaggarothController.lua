@@ -4,8 +4,11 @@ require 'script/_lib/WebHelpers'
 -- Resource Files
 require 'script/_lib/Resources/DarkElves/WebData/SpecialCharacters/DarkElfSpecialCharacters'
 require 'script/_lib/Resources/DarkElves/WebData/Religions/DarkElfReligions'
-require 'script/_lib/Resources/DarkElves/WebData/Factions/DarkElfFactions'
+require 'script/_lib/Resources/DarkElves/WebData/Factions/DarkElfSpecialFactions'
+require 'script/_lib/Resources/DarkElves/WebData/Factions/DarkElfFactionTemplates'
 require 'script/_lib/Resources/DarkElves/WebData/Webs/DarkElfWebs'
+require 'script/_lib/Resources/DarkElves/WebData/Webs/DarkElfSpecialDistricts'
+require 'script/_lib/Resources/DarkElves/WebData/Webs/DarkElfDistricts'
 
 require 'script/_lib/Resources/DarkElves/CharacterData/Names/DarkElfNames'
 require 'script/_lib/Resources/DarkElves/CharacterData/Archetypes/DarkElfArchetypes'
@@ -30,7 +33,10 @@ local DarkElfResources = {
     Backgrounds = DarkElfBackgrounds,
     Natures = DarkElfNatures,
     Careers = DarkElfCareers,
-    Factions = DarkElfFactions,
+    SpecialFactions = DarkElfSpecialFactions,
+    FactionTemplates = DarkElfFactionTemplates,
+    Districts = DarkElfDistricts,
+    SpecialDistricts = DarkElfSpecialDistricts,
     Webs = DarkElfWebs,
   }
   

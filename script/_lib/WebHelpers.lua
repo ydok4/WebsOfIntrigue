@@ -1,5 +1,4 @@
-require 'script/_lib/CharacterHelpers'
-
+require 'script/_lib/DistrictHelper'
 
 function CreateWeb(RaceResources, webName, parentName, parentUUID)
   --  Find the web by name
@@ -21,9 +20,9 @@ function CreateWeb(RaceResources, webName, parentName, parentUUID)
     SupportedBackgrounds = webSchema.SupportedBackgrounds,
     Size = webSchema.Size,
     SocialClassModifier = webSchema.SocialClassModifier,
-    Characters = CreateCharactersForWeb(RaceResources, webSchema),
     ChildWebs = {},
-    InternalWebs = {},
+    Districts = webSchema.Districts,
+    ExtraFactions = webSchema.ExtraFactions,
     Type = webSchema.Type,
   });
       
@@ -42,16 +41,16 @@ function CreateWeb(RaceResources, webName, parentName, parentUUID)
     
   end
   
-  if #webSchema.InternalWebs > 0 then
-    local internalWebs = {};
-    for key,value in pairs(webSchema.InternalWebs) do
+  if #webSchema.Districts > 0 then
+    local Districts = {};
+    for key,value in pairs(webSchema.Districts) do
       
-      local internalWeb = CreateWeb(RaceResources, value, web.Name, web.UUID);
-      internalWebs[#internalWebs + 1] = internalWeb;
+      local district = CreateDistrict(RaceResources, value, web);
+      Districts[#Districts + 1] = district;
       
     end
     
-    web.InternalWebs = internalWebs;        
+    web.Districts = Districts;        
   end
   
   return web;
@@ -107,19 +106,19 @@ function SearchChildWebs(webUUID, web)
     if foundWeb then
       return foundWeb;
     else
-      return SearchInternalWebs(webUUID, childWeb);
+      return SearchDistricts(webUUID, childWeb);
     end
   end
 end
 
-function SearchInternalWebs(webUUID, web)
+function SearchDistricts(webUUID, web)
   local foundWeb = {};
-  for key, internalWeb in pairs(web.InternalWebs) do
+  for key, internalWeb in pairs(web.Districts) do
     if internalWeb.UUID == webUUID then
       return internalWeb;
     end
     
-    foundWeb = SearchInternalWebs(webUUID, internalWeb);
+    foundWeb = SearchDistricts(webUUID, internalWeb);
     if foundWeb then
       return foundWeb;
     end
@@ -129,16 +128,16 @@ end
 
 function GetDistrictsForWeb(webUUID, webData)
   local foundWeb = GetWebByUUID(webUUID, webData);
-  return foundWeb.InternalWebs;
+  return foundWeb.Districts;
 end
 
 function GetDistrictsFromWeb(web)
-  local internalWebs = {};
-  for key, internalWeb in pairs(web.InternalWebs) do
-    internalWebs[#internalWebs + 1] = internalWeb;
+  local Districts = {};
+  for key, internalWeb in pairs(web.Districts) do
+    Districts[#Districts + 1] = internalWeb;
   end
   
-  return internalWebs;
+  return Districts;
 end
 
 function GetCharactersForWeb(webUUID, webData)

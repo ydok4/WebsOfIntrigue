@@ -9,7 +9,7 @@
     SocialClassModifier = 0,
     Characters = {},
     ChildWebs = {},
-    InternalWebs = {},
+    Districts = {},
   }
   
   

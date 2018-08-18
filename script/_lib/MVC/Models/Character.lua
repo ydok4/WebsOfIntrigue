@@ -49,3 +49,13 @@ end
 function Character:GetCharacterName()
   return self.Name.FirstName.." "..self.Name.Surname;
 end
+
+function Character:HasFactionMembership(factionUUID)
+  for key1, membership in pairs(self.Memberships) do
+    if membership.FactionUUID == factionUUID then
+      return true;
+    end
+  end
+
+  return false;
+end

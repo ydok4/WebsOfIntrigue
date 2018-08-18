@@ -16,7 +16,7 @@ function FindFirstDataInTable(table, field, values)
     end
   end
   
-  return {};
+  return nil;
 end
 
 function FindDataItemsInTableByKey(table, values)
@@ -28,6 +28,9 @@ function FindDataItemsInTableByKey(table, values)
     end
   end
   
+  if #items == 0 then
+    return nil;
+  end
   return items;
 end
 
@@ -46,11 +49,12 @@ function FindDataItemsInTable(table, field, values)
           items[#items + 1] = tableItem;
           break;
         end
-        
       end
     end
   end
-  
+  if #items == 0 then
+    return nil;
+  end
   return items;
 end
 
@@ -81,6 +85,9 @@ function FindDataItemsNotInTable(table, field, values)
     end
   end
   
+  if #items == 0 then
+    return nil;
+  end
   return items;
 end
 

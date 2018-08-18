@@ -106,6 +106,57 @@ DarkElfCareers = {
   },
   
   -- Military Careers
+  Drachau = {
+    Name = "Drachau",
+    Archetype = "Military",
+    CareerLevel = 4,
+    GrantedMemberships = {},
+    
+    Actions = {"Rule", },
+    Traits = {"", },
+    
+    ExitCareers = {},
+    Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
+    
+    Backgrounds = {"Noble" },
+    ExcludedBackgrounds = {"Slave", },
+    SocialClasses = {"Gold", },
+    ExcludedGender = "",
+  },
+  Vaulkhar = {
+    Name = "Vaulkhar",
+    Archetype = "Military",
+    CareerLevel = 4,
+    GrantedMemberships = {},
+    
+    Actions = {"Rule", },
+    Traits = {"", },
+    
+    ExitCareers = {},
+    Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
+    
+    Backgrounds = {"Noble" },
+    ExcludedBackgrounds = {"Slave", },
+    SocialClasses = {"Gold", },
+    ExcludedGender = "",
+  },
+  DreadLord = {
+    Name = "Dread Lord",
+    Archetype = "Military",
+    CareerLevel = 3,
+    GrantedMemberships = {},
+    
+    Actions = {"Rule", },
+    Traits = {"", },
+    
+    ExitCareers = {},
+    Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
+    
+    Backgrounds = {"Noble" },
+    ExcludedBackgrounds = {"Slave", },
+    SocialClasses = {"Gold", },
+    ExcludedGender = "",
+  },
   Dreadspear = {
     Name = "Dreadspear",
     Archetype = "Military",
@@ -119,7 +170,7 @@ DarkElfCareers = {
     Goals = {"AdvanceCareer", "Survive"}, 
     
     Backgrounds = {"Any" },
-    ExcludedBackgrounds = {"Slave" },
+    ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", "Silver", "Bronze", },
     ExcludedGender = "",
   },
@@ -136,7 +187,7 @@ DarkElfCareers = {
     Goals = {"AdvanceCareer", "Survive"}, 
     
     Backgrounds = {"Any" },
-    ExcludedBackgrounds = {"Slave" },
+    ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", "Silver", "Bronze", },
     ExcludedGender = "",
   },
@@ -153,7 +204,7 @@ DarkElfCareers = {
     Goals = {"AdvanceCareer", "Survive"}, 
     
     Backgrounds = {"Any" },
-    ExcludedBackgrounds = {"Slave" },
+    ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", "Silver", "Bronze", },
     ExcludedGender = "",
   },
@@ -170,7 +221,7 @@ DarkElfCareers = {
     Goals = {"AdvanceCareer", "Survive"}, 
     
     Backgrounds = {"Any" },
-    ExcludedBackgrounds = {"Slave" },
+    ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", "Silver", "Bronze", },
     ExcludedGender = "",
   },
@@ -184,10 +235,10 @@ DarkElfCareers = {
     Traits = {"MurderousProwess", "Sadistic", },
     
     ExitCareers = {"FleetMaster", "Musician", "StandardBearer", },
-    Goals = {"AdvanceCareer", "Survive"}, 
+    Goals = {"AdvanceCareer", "Survive"},
     
     Backgrounds = {"Any" },
-    ExcludedBackgrounds = {"Slave" },
+    ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", "Silver", "Bronze", },
     ExcludedGender = "",
   },
@@ -204,7 +255,7 @@ DarkElfCareers = {
     Goals = {"AdvanceCareer", "Survive"}, 
     
     Backgrounds = {"Any" },
-    ExcludedBackgrounds = {"Slave" },
+    ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", "Silver", "Bronze", },
     ExcludedGender = "",
   },
@@ -221,7 +272,7 @@ DarkElfCareers = {
     Goals = {"AdvanceCareer", "Survive"}, 
     
     Backgrounds = {"Any" },
-    ExcludedBackgrounds = {"Slave" },
+    ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", "Silver", "Bronze", },
     ExcludedGender = "Female",
   },
@@ -238,7 +289,7 @@ DarkElfCareers = {
     Goals = {"Survive"}, 
     
     Backgrounds = {"Any" },
-    ExcludedBackgrounds = {"Slave" },
+    ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", "Silver", "Bronze", },
     ExcludedGender = "Female",
   },
@@ -255,7 +306,7 @@ DarkElfCareers = {
     Goals = {"Survive"}, 
     
     Backgrounds = {"Any" },
-    ExcludedBackgrounds = {"Slave" },
+    ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", "Silver", "Bronze", },
     ExcludedGender = "Female",
   },

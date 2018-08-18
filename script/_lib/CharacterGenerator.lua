@@ -42,6 +42,14 @@ function GenerateSocialClass(raceSocialClasses, socialClassModifier)
   return 
 end
 
+function GetRandomSurname(raceNames, gender)
+  local genderNames = FindDataItemsInTable(raceNames, "Gender", {gender, "Both"});
+  local genderSurnames = FindDataItemsInTable(genderNames, "Type", {"Surname"});
+  local surnameData = genderSurnames[Random(#genderSurnames)];
+
+  return surnameData.Name;
+end
+
 function GenerateName(raceNames, gender)
   local genderNames = FindDataItemsInTable(raceNames, "Gender", {gender, "Both"});
   local genderFirstNames = FindDataItemsInTable(genderNames, "Type", {"FirstName"});
@@ -113,13 +121,11 @@ function GetValidSocialClassFromCareers(raceSocialClasses, careers)
   return validSocialClasses[Random(#validSocialClasses)];
 end
 
-function GenerateMembershipForFaction(faction, rank, webUUID)
-  local memberships = {};
-  memberships[#memberships + 1] = Membership:new({
-    FactionName = faction,
-    WebUUID = webUUID,
+function GenerateMembershipForFaction(factionData, rank)
+  return Membership:new({
+    FactionName = factionData.Name,
+    FactionUUID = factionData.UUID,
     Rank = rank.Name,
     IsKnownMember = Roll100(rank.StealthValue),
   });
-  return memberships;
 end

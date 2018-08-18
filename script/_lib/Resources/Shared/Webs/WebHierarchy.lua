@@ -11,10 +11,10 @@ WebHierarchy = {
     Type = "ProvincalCapital",
     Order = 2,
   },
-  --[[Settlement = {
+  Settlement = {
     Type = "Settlement",
     Order = 2,
-  },--]]
+  },
   District = {
     Type = "District",
     Order = 3,
