@@ -81,7 +81,7 @@ function GenerateCharactersForFaction(charactersList, factionList, district, fac
     local numberOfChars = 0;
     if factionData:IsRankPositionAvailable(rank) then
       if rank.Limit == 0 then
-        numberOfChars = Random(5) + 1;
+        numberOfChars = Random(2) + 1;
       else
         numberOfChars = rank.Limit;
       end

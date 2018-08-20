@@ -2,7 +2,7 @@ DarkElfFactionTemplates = {
 
         SlaversFaction = {
         NamePool = {"The Slave Traders", },
-        Number = 1,
+        PregeneratedAmount = 1,
         Ranks = {
           {
             Name = "Slave Master",
@@ -30,7 +30,7 @@ DarkElfFactionTemplates = {
       
       MajorCityGovernmentFaction = {
         NamePool = {"Rulers of WEBNAME", },
-        Number = 1,
+        PregeneratedAmount = 1,
         RelatedDistrict = "NobleDistrict",
         Ranks = {
           {
@@ -65,7 +65,7 @@ DarkElfFactionTemplates = {
       
       NobilityFaction = {
         NamePool = {"Nobility of WEBNAME", "Nobles of WEBNAME", },
-        Number = 1,
+        PregeneratedAmount = 1,
         Ranks = {
           {
             Name = "Estate Owner",
@@ -106,7 +106,7 @@ DarkElfFactionTemplates = {
             Ordinal = 2,
             StealthValue = 100,
           },
-          {
+          --[[{
             Name = "Noble",
             AdditionalMemberships = {
               {
@@ -118,14 +118,14 @@ DarkElfFactionTemplates = {
             Limit = 0,
             Ordinal = 3,
             StealthValue = 100,
-          },
+          },--]]
         },
       },
 
       NobleFamilyFaction = {
         NamePool = {"The SURNAME of WEBNAME", "The SURNAMEs", "The house of SURNAME", 
         "The ADJECTIVE of house SURNAME", "House SURNAME", },
-        Number = 20,
+        PregeneratedAmount = 11,
         Ranks = {
           {
             Name = "Mother",
@@ -185,7 +185,7 @@ DarkElfFactionTemplates = {
       
       GuildFactions = {
         NamePool = {"The Guilds", },
-        Number = 3,
+        PregeneratedAmount = 3,
         Ranks = {
           {
             Name = "Guild Masters",
@@ -213,7 +213,7 @@ DarkElfFactionTemplates = {
       
       BarracksFaction = {
         NamePool = {"The Barracks Faction", },
-        Number = 1,
+        PregeneratedAmount = 1,
         Ranks = {
           {
             Name = "Lordling",
@@ -248,7 +248,7 @@ DarkElfFactionTemplates = {
       
       HarbourFaction = {
         NamePool = {"The Harbour Faction", },
-        Number = 1,
+        PregeneratedAmount = 1,
         Ranks = {
           {
             Name = "Harbour Master",

@@ -58,7 +58,7 @@ function GenerateFactionsForDistrict(RaceResources, web, district, matchingExtra
 
     for key, factionTemplate in pairs(district.FactionTemplates) do
         local factionTemplateSchema =  RaceResources.FactionTemplates[factionTemplate];
-        for i = 1, factionTemplateSchema.Number do
+        for i = 1, factionTemplateSchema.PregeneratedAmount do
             local faction = GenerateFactionForDistrict(RaceResources, district, factionTemplateSchema, factionTemplate, web.Name);
             factionList[#factionList + 1] = faction;
         end
