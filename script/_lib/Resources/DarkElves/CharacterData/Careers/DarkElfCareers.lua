@@ -46,7 +46,7 @@ DarkElfCareers = {
     ExitCareers = {},
     Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
     
-    Backgrounds = {"Noble" },
+    Backgrounds = {"Nobility" },
     ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", },
     ExcludedGender = "",
@@ -63,7 +63,7 @@ DarkElfCareers = {
     ExitCareers = {},
     Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
     
-    Backgrounds = {"Noble", "Urban", },
+    Backgrounds = {"Nobility", "Urban", },
     ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", "Silver",},
     ExcludedGender = "",
@@ -118,7 +118,7 @@ DarkElfCareers = {
     ExitCareers = {},
     Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
     
-    Backgrounds = {"Noble" },
+    Backgrounds = {"Nobility" },
     ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", },
     ExcludedGender = "",
@@ -135,7 +135,7 @@ DarkElfCareers = {
     ExitCareers = {},
     Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
     
-    Backgrounds = {"Noble" },
+    Backgrounds = {"Nobility" },
     ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", },
     ExcludedGender = "",
@@ -152,7 +152,7 @@ DarkElfCareers = {
     ExitCareers = {},
     Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
     
-    Backgrounds = {"Noble" },
+    Backgrounds = {"Nobility" },
     ExcludedBackgrounds = {"Slave", },
     SocialClasses = {"Gold", },
     ExcludedGender = "",

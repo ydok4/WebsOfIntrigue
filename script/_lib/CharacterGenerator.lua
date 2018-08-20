@@ -95,13 +95,13 @@ function GetValidBackgroundFromCareers(raceBackgrounds, raceCareers, careers)
     local validBackground = true;
     for key,career in pairs(careers) do
       local careerData = FindFirstDataInTable(raceCareers, "Name", {career});
-      if career.ExcludedBackgrounds and AreValuesInList(career.ExcludedBackgrounds, {background}) then
+      if career.ExcludedBackgrounds and ( AreValuesInList(career.ExcludedBackgrounds, {background.Name}) or AreValuesInList(career.Backgrounds, {background.Name}) == false) then
         validBackground = false;
         break;
       end
     end
       
-    if validBackground == true then
+    if validBackground == true  then
       validBackgrounds[#validBackgrounds + 1] = background; 
     end
   end
