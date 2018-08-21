@@ -6,6 +6,7 @@ Rank = {
     StealthValue = 0,
     CharacterUUIDs = {},
     Gender = "",
+    UseNameOverride = false,
 }
   
 function Rank:new (o)

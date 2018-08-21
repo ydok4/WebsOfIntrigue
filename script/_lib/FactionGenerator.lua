@@ -106,6 +106,7 @@ function GenerateRank(rankData)
         StealthValue = rankData.StealthValue,
         CharacterUUIDs = {},
         Gender = rankData.Gender,
+        UseCharacterOverride = rankData.UseCharacterOverride,
     });
 end
 

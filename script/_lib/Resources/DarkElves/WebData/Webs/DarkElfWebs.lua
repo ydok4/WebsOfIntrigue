@@ -73,7 +73,7 @@ DarkElfWebs = {
     RulingFaction = {},
     SocialClassModifier = 0,
     ChildWebs = {"wh2_main_the_black_flood_hag_graef", },
-    Districts = {"TheBlackHighway", },
+    Districts = {},
   },
   wh2_main_the_black_flood_hag_graef = {
     Name = "Hag Graef",
@@ -85,6 +85,6 @@ DarkElfWebs = {
     RulingFaction = {"MajorCityGovernmentFaction"},
     SocialClassModifier = 25,
     ChildWebs = {},
-    Districts = {"NobleDistrict"},
+    Districts = {"NobleDistrict", "HarbourDistrict",},
   },
 }

@@ -202,7 +202,7 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
     gender = GenerateGender(false, careerObjects);
   end
 
-  local name = GenerateFullNameObject(RaceNames, gender, factionData.GrantedNameOverride);
+  local name = GenerateFullNameObject(RaceNames, gender);
       
   local character = Character:new({
       UUID = GenerateUUID(),
@@ -216,7 +216,11 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
       Background = background,
       Careers = career.Name,
     });
-  
+
+  if rank.UseCharacterOverride == true then
+    character:SetCharacterName(factionData.GrantedNameOverride);
+  end
+
   return character;
 end
 

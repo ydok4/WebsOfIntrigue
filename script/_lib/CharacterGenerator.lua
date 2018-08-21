@@ -84,29 +84,11 @@ function GetRandomSurname(raceNames, gender)
   return surname;
 end
 
-function GenerateFullNameObject(raceNames, gender, grantedNameOverride)
+function GenerateFullNameObject(raceNames, gender)
   local titlePrefix = "";
   local firstName = GetRandomFirstName(raceNames, gender);
   local surname = GetRandomSurname(raceNames, gender);
   local titleSuffix = "";
-
-  if grantedNameOverride then
-    if #grantedNameOverride.TitlePrefix > 0 then
-      titlePrefix = grantedNameOverride.TitlePrefix;
-    end
-
-    if #grantedNameOverride.FirstName > 0 then
-      firstName = grantedNameOverride.FirstName;
-    end
-
-    if #grantedNameOverride.Surname > 0 then
-      surname = grantedNameOverride.Surname;
-    end
-
-    if #grantedNameOverride.TitleSuffix > 0 then
-      titleSuffix = grantedNameOverride.TitleSuffix;
-    end
-  end
 
   return Name:new({
     TitlePrefix = titlePrefix,

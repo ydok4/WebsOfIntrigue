@@ -11,7 +11,7 @@ DarkElfNames = {
       Name = "Nerlash",
       Gender = "Female",
       Type = "FirstName",
-      Suffixes = {},
+      Suffixes = {"ia",},
       Prefixes = {},
     },
     {
@@ -54,7 +54,7 @@ DarkElfNames = {
       Name = "Koval",
       Gender = "Male",
       Type = "FirstName",
-      Suffixes = {"a",},
+      Suffixes = {"a","ion",},
       Prefixes = {},
     },
     {
@@ -140,7 +140,7 @@ DarkElfNames = {
       Name = "Gloomgrip",
       Gender = "Both",
       Type = "Surname",
-      Suffixes = {"er",},
+      Suffixes = {"per",},
       Prefixes = {},
     },
     {

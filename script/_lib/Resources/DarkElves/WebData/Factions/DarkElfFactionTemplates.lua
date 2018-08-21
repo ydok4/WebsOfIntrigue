@@ -143,20 +143,22 @@ DarkElfFactionTemplates = {
         },
         Ranks = {
           {
-            Name = "Mother",
+            Name = "Matriarch",
             Careers = {"Noble",},
             Limit = 1,
             Ordinal = 0,
             StealthValue = 100,
             Gender = "Female",
+            UseNameOverride = true,
           },
           {
-            Name = "Father",
+            Name = "Patriarch",
             Careers = {"Noble",},
             Limit = 1,
             Ordinal = 0,
             StealthValue = 100,
             Gender = "Male",
+            UseNameOverride = true,
           },
           {
             Name = "Son",
@@ -165,6 +167,7 @@ DarkElfFactionTemplates = {
             Ordinal = 1,
             StealthValue = 100,
             Gender = "Male",
+            UseNameOverride = true,
           },
           {
             Name = "Daughter",
@@ -173,6 +176,7 @@ DarkElfFactionTemplates = {
             Ordinal = 1,
             StealthValue = 100,
             Gender = "Female",
+            UseNameOverride = true,
           },
           {
             Name = "Servant",
