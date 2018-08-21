@@ -135,6 +135,12 @@ DarkElfFactionTemplates = {
         NamePool = {"The SURNAME of WEBNAME", "The SURNAMEs", "The house of SURNAME", 
         "The ADJECTIVE of house SURNAME", "House SURNAME", },
         PregeneratedAmount = 11,
+        GrantedNameOverride = {
+          TitlePrefix = nil,
+          FirstName = nil,
+          Surname = "RANDOM",
+          TitleSuffix = nil,
+        },
         Ranks = {
           {
             Name = "Mother",

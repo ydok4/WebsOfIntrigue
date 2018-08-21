@@ -1,8 +1,9 @@
   Name = {
+    TitlePrefix = "",
     FirstName = "",
     Surname = "",
+    TitleSuffix = "",
   }
-  
   
 function Name:new (o)
   o = o or {}   -- create object if user does not provide one

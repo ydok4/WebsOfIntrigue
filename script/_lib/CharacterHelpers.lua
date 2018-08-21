@@ -131,6 +131,11 @@ function AddAdditionalFactionMembership(character, rank, factionList)
       additionalFaction:SetCharacterAsRank(character, additionalRank);
     end
     character.Memberships[#character.Memberships + 1] = GenerateMembershipForFaction(additionalFaction, additionalRank);
+
+    if additionalFaction.GrantedNameOverride then
+      character:SetName(additionalFaction.GrantedNameOverride);
+    end
+
     if additionalRank.AdditionalMemberships then
       AddAdditionalFactionMembership(character, additionalRank, factionList);
     end
@@ -197,7 +202,7 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
     gender = GenerateGender(false, careerObjects);
   end
 
-  local name = GenerateName(RaceNames, gender);
+  local name = GenerateFullNameObject(RaceNames, gender, factionData.GrantedNameOverride);
       
   local character = Character:new({
       UUID = GenerateUUID(),
@@ -236,7 +241,7 @@ function GenerateCharacter(web)
   end
   
   local gender = GenerateGender(false, careerObjects, RaceCareers);
-  local name = GenerateName(RaceNames, gender);
+  local name = GenerateFullNameObject(RaceNames, gender);
   
   
   local character = Character:new({

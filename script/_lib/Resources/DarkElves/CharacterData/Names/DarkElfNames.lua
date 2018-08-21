@@ -1,4 +1,5 @@
 DarkElfNames = {
+  --------------FEMALE FIRSTNAMES
     {
       Name = "Alarion",
       Gender = "Female",
@@ -28,7 +29,7 @@ DarkElfNames = {
       Suffixes = {"a",},
       Prefixes = {},
     },
-    
+    --------------SUNAMES
     {
       Name = "Soulblaze",
       Gender = "Both",
@@ -38,6 +39,62 @@ DarkElfNames = {
     },
     {
       Name = "Darkpath",
+      Gender = "Both",
+      Type = "Surname",
+      Suffixes = {},
+      Prefixes = {},
+    },
+    {
+      Name = "Pyrebane",
+      Gender = "Both",
+      Type = "Surname",
+      Suffixes = {},
+      Prefixes = {},
+    },
+    {
+      Name = "Hellbleed",
+      Gender = "Both",
+      Type = "Surname",
+      Suffixes = {"er",},
+      Prefixes = {},
+    },
+    {
+      Name = "Shadowripper",
+      Gender = "Both",
+      Type = "Surname",
+      Suffixes = {},
+      Prefixes = {},
+    },
+    {
+      Name = "Warreaper",
+      Gender = "Both",
+      Type = "Surname",
+      Suffixes = {},
+      Prefixes = {},
+    },
+    {
+      Name = "Duskbind",
+      Gender = "Both",
+      Type = "Surname",
+      Suffixes = {"er",},
+      Prefixes = {},
+    },
+    {
+      Name = "gloomgrip",
+      Gender = "Both",
+      Type = "Surname",
+      Suffixes = {"er",},
+      Prefixes = {},
+    },
+    {
+      Name = "Deadarrow",
+      Gender = "Both",
+      Type = "Surname",
+      Suffixes = {},
+      Prefixes = {},
+    },
+    {
+      Name = "Shadowfall",
       Gender = "Both",
       Type = "Surname",
       Suffixes = {},

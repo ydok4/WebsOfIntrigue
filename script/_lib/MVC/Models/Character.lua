@@ -59,3 +59,23 @@ function Character:HasFactionMembership(factionUUID)
 
   return false;
 end
+
+function Character:SetName(nameObject)
+  if nameObject then
+    if #nameObject.TitlePrefix > 0 then
+      self.Name.TitlePrefix = nameObject.TitlePrefix;
+    end
+
+    if #nameObject.FirstName > 0 then
+      self.Name.FirstName = nameObject.FirstName;
+    end
+
+    if #nameObject.Surname > 0 then
+      self.Name.Surname = nameObject.Surname;
+    end
+
+    if #nameObject.TitleSuffix > 0 then
+      self.Name.TitleSuffix = nameObject.TitleSuffix;
+    end
+  end
+end

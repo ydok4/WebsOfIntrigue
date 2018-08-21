@@ -2,6 +2,8 @@ Faction = {
     UUID = "",
     ParentWebUUID = "",
     Name = "",
+    -- Name Object
+    GrantedNameOverride = nil,
     TemplateType = "",
     ParentName = "",
     Ranks = {},
@@ -12,7 +14,6 @@ Faction = {
     Goals = {},
     Actions = {},
   }
-
   
 function Faction:new (o)
   o = o or {}   -- create object if user does not provide one

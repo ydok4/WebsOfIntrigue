@@ -34,7 +34,7 @@ function GenerateGender(isSexless, careers)
 end
 
 function GenerateSocialClass(raceSocialClasses, socialClassModifier)
-  for key,socialClass in pairs(raceSocialClasses) do
+  for key, socialClass in pairs(raceSocialClasses) do
     if Roll100(socialClass["AppearanceChance"] + socialClassModifier) then
         return socialClass;
     end
@@ -42,22 +42,16 @@ function GenerateSocialClass(raceSocialClasses, socialClassModifier)
   return 
 end
 
-function GetRandomSurname(raceNames, gender)
-  local genderNames = FindDataItemsInTable(raceNames, "Gender", {gender, "Both"});
-  local genderSurnames = FindDataItemsInTable(genderNames, "Type", {"Surname"});
-  local surnameData = genderSurnames[Random(#genderSurnames)];
-
-  return surnameData.Name;
-end
-
-function GenerateName(raceNames, gender)
-  local genderNames = FindDataItemsInTable(raceNames, "Gender", {gender, "Both"});
+function GetRandomFirstName(raceNames, gender)
+  local genderNames = {};
+  if gender == "Both" then
+    genderNames = raceNames;
+  else
+    genderNames = FindDataItemsInTable(raceNames, "Gender", {gender, "Both"});
+  end
   local genderFirstNames = FindDataItemsInTable(genderNames, "Type", {"FirstName"});
-  local genderSurnames = FindDataItemsInTable(genderNames, "Type", {"Surname"});
-  
   local firstNameData = genderFirstNames[Random(#genderFirstNames)];
-  local surnameData = genderSurnames[Random(#genderSurnames)];
-  
+
   local firstName = firstNameData.Name;
   if #firstNameData.Prefixes > 0 and Random(#firstNameData.Prefixes + 1) > 1 then
     firstName = firstNameData.Prefixes[#firstNameData.Prefixes]..firstName;
@@ -65,6 +59,19 @@ function GenerateName(raceNames, gender)
   if #firstNameData.Suffixes > 0 and Random(#firstNameData.Suffixes + 1) > 1 then
     firstName = firstName..firstNameData.Suffixes[#firstNameData.Suffixes];
   end
+
+  return firstName;
+end
+
+function GetRandomSurname(raceNames, gender)
+  local genderNames = {};
+  if gender == "Both" then
+    genderNames = raceNames;
+  else
+    genderNames = FindDataItemsInTable(raceNames, "Gender", {gender, "Both"});
+  end
+  local genderSurnames = FindDataItemsInTable(genderNames, "Type", {"Surname"});
+  local surnameData = genderSurnames[Random(#genderSurnames)];
 
   local surname = surnameData.Name;
   if #surnameData.Prefixes > 0 and Random(#surnameData.Prefixes + 1) > 1 then
@@ -74,9 +81,38 @@ function GenerateName(raceNames, gender)
     surname = surname..surnameData.Suffixes[#surnameData.Suffixes];
   end
 
+  return surname;
+end
+
+function GenerateFullNameObject(raceNames, gender, grantedNameOverride)
+  local titlePrefix = "";
+  local firstName = GetRandomFirstName(raceNames, gender);
+  local surname = GetRandomSurname(raceNames, gender);
+  local titleSuffix = "";
+
+  if grantedNameOverride then
+    if #grantedNameOverride.TitlePrefix > 0 then
+      titlePrefix = grantedNameOverride.TitlePrefix;
+    end
+
+    if #grantedNameOverride.FirstName > 0 then
+      firstName = grantedNameOverride.FirstName;
+    end
+
+    if #grantedNameOverride.Surname > 0 then
+      surname = grantedNameOverride.Surname;
+    end
+
+    if #grantedNameOverride.TitleSuffix > 0 then
+      titleSuffix = grantedNameOverride.TitleSuffix;
+    end
+  end
+
   return Name:new({
+    TitlePrefix = titlePrefix,
     FirstName = firstName,
     Surname = surname,
+    TitleSuffix = titleSuffix,
   });
 end
 
