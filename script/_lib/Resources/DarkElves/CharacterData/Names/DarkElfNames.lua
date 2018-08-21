@@ -1,5 +1,5 @@
 DarkElfNames = {
-  --------------FEMALE FIRSTNAMES
+  --------------FIRSTNAMES
     {
       Name = "Alarion",
       Gender = "Female",
@@ -8,7 +8,35 @@ DarkElfNames = {
       Prefixes = {},
     },
     {
+      Name = "Nerlash",
+      Gender = "Female",
+      Type = "FirstName",
+      Suffixes = {},
+      Prefixes = {},
+    },
+    {
+      Name = "Nhetta",
+      Gender = "Female",
+      Type = "FirstName",
+      Suffixes = {},
+      Prefixes = {},
+    },
+    {
       Name = "Hulaylian",
+      Gender = "Female",
+      Type = "FirstName",
+      Suffixes = {},
+      Prefixes = {},
+    },
+    {
+      Name = "Vovhash",
+      Gender = "Female",
+      Type = "FirstName",
+      Suffixes = {},
+      Prefixes = {},
+    },
+    {
+      Name = "Heva",
       Gender = "Female",
       Type = "FirstName",
       Suffixes = {},
@@ -29,6 +57,35 @@ DarkElfNames = {
       Suffixes = {"a",},
       Prefixes = {},
     },
+    {
+      Name = "Narol",
+      Gender = "Male",
+      Type = "FirstName",
+      Suffixes = {},
+      Prefixes = {},
+    },
+    {
+      Name = "Delur",
+      Gender = "Male",
+      Type = "FirstName",
+      Suffixes = {},
+      Prefixes = {},
+    },
+    {
+      Name = "Vigic",
+      Gender = "Male",
+      Type = "FirstName",
+      Suffixes = {},
+      Prefixes = {},
+    },
+    {
+      Name = "Nauker",
+      Gender = "Male",
+      Type = "FirstName",
+      Suffixes = {},
+      Prefixes = {},
+    },
+
     --------------SUNAMES
     {
       Name = "Soulblaze",
@@ -80,7 +137,7 @@ DarkElfNames = {
       Prefixes = {},
     },
     {
-      Name = "gloomgrip",
+      Name = "Gloomgrip",
       Gender = "Both",
       Type = "Surname",
       Suffixes = {"er",},
