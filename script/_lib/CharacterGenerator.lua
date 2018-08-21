@@ -3,7 +3,7 @@ require 'script/_lib/MVC/Models/Membership'
 
 require 'script/_lib/DataHelpers'
 
-function GenerateGender(isSexless, careers, raceCareers)
+function GenerateGender(isSexless, careers)
   if isSexless and isSexless == true then
     return "Sexless";
   else
@@ -95,7 +95,7 @@ function GetValidBackgroundFromCareers(raceBackgrounds, raceCareers, careers)
     local validBackground = true;
     for key,career in pairs(careers) do
       local careerData = FindFirstDataInTable(raceCareers, "Name", {career});
-      if career.ExcludedBackgrounds and ( AreValuesInList(career.ExcludedBackgrounds, {background.Name}) or AreValuesInList(career.Backgrounds, {background.Name}) == false) then
+      if career.ExcludedBackgrounds and ( AreValuesInList(career.ExcludedBackgrounds, {background.Name}) or AreValuesInList(career.Backgrounds, {background.Name, "Any"}) == false) then
         validBackground = false;
         break;
       end

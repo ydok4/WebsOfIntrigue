@@ -110,15 +110,23 @@ function AddAdditionalFactionMembership(character, rank, factionList)
     -- If the additional rank is unspecified 
     local additionalRank = nil;
     if additionalMembership.OrdinalRank == -1 then
-      additionalRank = additionalFactionSchema.Ranks[Random(#additionalFactionSchema.Ranks)];
+      local matchingRanks =  FindDataItemsInTable(additionalFactionSchema.Ranks, "Gender", {character.Gender, ""});
+      additionalRank = matchingRanks[Random(#matchingRanks)];
     else
       local matchingRanks = FindDataItemsInTable(additionalFactionSchema.Ranks, "Ordinal", {additionalMembership.OrdinalRank});
+      matchingRanks =  FindDataItemsInTable(matchingRanks, "Gender", {character.Gender, ""});
       additionalRank = matchingRanks[Random(#matchingRanks)];
+    end
+
+    if not additionalRank then
+      Custom_Log("No rank membership available matching criteria");
+      return;
     end
 
     local additionalFaction = FindFactionWithVacantRank(factionList, additionalRank);
     if not additionalFaction then
-      Custom_Log("No faction available for rank");
+      Custom_Log("No generated faction available for ran");
+      return;
     else
       additionalFaction:SetCharacterAsRank(character, additionalRank);
     end
@@ -156,10 +164,16 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
   local careerIDs = {};
   local careerObjects = {};
   local careerNames = {};
-  careerIDs[#careerIDs + 1] = rank.Careers[Random(#rank.Careers)];
+  --careerIDs[#careerIDs + 1] = rank.Careers[Random(#rank.Careers)];
   
-  for key, career in pairs(careerIDs) do
-    careerObjects[#careerObjects + 1] = RaceCareers[career];
+  for key, career in pairs(rank.Careers) do
+    if rank.Gender and career.Gender then
+      if AreValuesInList(career.Gender, {rank.Gender}) then
+        careerObjects[#careerObjects + 1] = RaceCareers[career];
+      end
+    else
+      careerObjects[#careerObjects + 1] = RaceCareers[career];
+    end
   end
   
   for key, career in pairs(careerObjects) do
@@ -171,9 +185,18 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
   local background = GetValidBackgroundFromCareers(RaceBackgrounds, RaceCareers, careerObjects).Name;
   local socialClass = GetValidSocialClassFromCareers(RaceSocialClasses, careerObjects);
 
+  --Pick a career from the rank careers
+  local career = GenerateCareer(RaceCareers, careerNames, background, socialClass)
+
   local race = GetRace(socialClass);
   
-  local gender = GenerateGender(false, careerObjects, RaceCareers);
+  local gender = "";
+  if #rank.Gender > 0 then
+    gender = rank.Gender;
+  else
+    gender = GenerateGender(false, careerObjects);
+  end
+
   local name = GenerateName(RaceNames, gender);
       
   local character = Character:new({
@@ -186,7 +209,7 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
       SocialClass = socialClass.Name,
       
       Background = background,
-      Careers = careerNames,
+      Careers = career.Name,
     });
   
   return character;

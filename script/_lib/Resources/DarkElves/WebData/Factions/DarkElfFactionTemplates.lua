@@ -10,6 +10,7 @@ DarkElfFactionTemplates = {
             Limit = 5,
             Ordinal = 0,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Slave Auctioneer",
@@ -17,6 +18,7 @@ DarkElfFactionTemplates = {
             Limit = 0,
             Ordinal = 1,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Slaver",
@@ -24,6 +26,7 @@ DarkElfFactionTemplates = {
             Limit = 0,
             Ordinal = 2,
             StealthValue = 100,
+            Gender = "",
           },
         },
       },
@@ -45,6 +48,7 @@ DarkElfFactionTemplates = {
             Limit = 1,
             Ordinal = 0,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Vaulkhar",
@@ -58,6 +62,7 @@ DarkElfFactionTemplates = {
             Limit = 1,
             Ordinal = 1,
             StealthValue = 100,
+            Gender = "",
           },
         },
       },
@@ -79,6 +84,7 @@ DarkElfFactionTemplates = {
             Limit = 2,
             Ordinal = 0,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Residence Owner",
@@ -92,6 +98,7 @@ DarkElfFactionTemplates = {
             Limit = 4,
             Ordinal = 1,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Manor Owner",
@@ -105,6 +112,7 @@ DarkElfFactionTemplates = {
             Limit = 5,
             Ordinal = 2,
             StealthValue = 100,
+            Gender = "",
           },
           --[[{
             Name = "Noble",
@@ -118,6 +126,7 @@ DarkElfFactionTemplates = {
             Limit = 0,
             Ordinal = 3,
             StealthValue = 100,
+            Gender = "",
           },--]]
         },
       },
@@ -161,17 +170,19 @@ DarkElfFactionTemplates = {
           },
           {
             Name = "Servant",
-            Careers = {"Noble",},
+            Careers = {"Servant",},
             Limit = 0,
             Ordinal = 1,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Retainer",
-            Careers = {"Noble",},
+            Careers = {"Retainer",},
             Limit = 0,
             Ordinal = 1,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Slave",
@@ -179,6 +190,7 @@ DarkElfFactionTemplates = {
             Limit = 0,
             Ordinal = 2,
             StealthValue = 100,
+            Gender = "",
           },
         },
       },
@@ -193,6 +205,7 @@ DarkElfFactionTemplates = {
             Limit = 5,
             Ordinal = 0,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Guild Members",
@@ -200,6 +213,7 @@ DarkElfFactionTemplates = {
             Limit = 0,
             Ordinal = 1,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Guild Initiate",
@@ -207,6 +221,7 @@ DarkElfFactionTemplates = {
             Limit = 0,
             Ordinal = 2,
             StealthValue = 100,
+            Gender = "",
           },
         },
       },
@@ -221,6 +236,7 @@ DarkElfFactionTemplates = {
             Limit = 1,
             Ordinal = 0,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Standard Bearer",
@@ -228,6 +244,7 @@ DarkElfFactionTemplates = {
             Limit = 1,
             Ordinal = 1,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Musician",
@@ -235,6 +252,7 @@ DarkElfFactionTemplates = {
             Limit = 1,
             Ordinal = 1,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Militia Member",
@@ -242,6 +260,7 @@ DarkElfFactionTemplates = {
             Limit = 0,
             Ordinal = 2,
             StealthValue = 100,
+            Gender = "",
           },
         },
       },
@@ -256,6 +275,7 @@ DarkElfFactionTemplates = {
             Limit = 1,
             Ordinal = 0,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Ship Captain",
@@ -263,6 +283,7 @@ DarkElfFactionTemplates = {
             Limit = 0,
             Ordinal = 1,
             StealthValue = 100,
+            Gender = "",
           },
           {
             Name = "Sailor",
@@ -270,6 +291,7 @@ DarkElfFactionTemplates = {
             Limit = 0,
             Ordinal = 2,
             StealthValue = 100,
+            Gender = "",
           },
         },
       },

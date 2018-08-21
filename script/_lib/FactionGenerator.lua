@@ -66,6 +66,7 @@ function GenerateRank(rankData)
         Ordinal = rankData.Ordinal,
         StealthValue = rankData.StealthValue,
         CharacterUUIDs = {},
+        Gender = rankData.Gender,
     });
 end
 

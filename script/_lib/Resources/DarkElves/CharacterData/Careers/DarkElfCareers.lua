@@ -30,7 +30,7 @@ DarkElfCareers = {
     Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
     
     Backgrounds = {"Any" },
-    ExcludedBackgrounds = {"Slave" },
+    ExcludedBackgrounds = {"Slave", "Autarii" },
     SocialClasses = {"Gold", "Silver", "Bronze", },
     ExcludedGender = "",
   },
