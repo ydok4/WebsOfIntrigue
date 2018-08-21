@@ -58,9 +58,25 @@ function GenerateName(raceNames, gender)
   local firstNameData = genderFirstNames[Random(#genderFirstNames)];
   local surnameData = genderSurnames[Random(#genderSurnames)];
   
+  local firstName = firstNameData.Name;
+  if #firstNameData.Prefixes > 0 and Random(#firstNameData.Prefixes + 1) > 1 then
+    firstName = firstNameData.Prefixes[#firstNameData.Prefixes]..firstName;
+  end
+  if #firstNameData.Suffixes > 0 and Random(#firstNameData.Suffixes + 1) > 1 then
+    firstName = firstName..firstNameData.Suffixes[#firstNameData.Suffixes];
+  end
+
+  local surname = surnameData.Name;
+  if #surnameData.Prefixes > 0 and Random(#surnameData.Prefixes + 1) > 1 then
+    surname = surnameData.Prefixes[#surnameData.Prefixes]..surname;
+  end
+  if #surnameData.Suffixes > 0 and Random(#surnameData.Suffixes + 1) > 1 then
+    surname = surname..surnameData.Suffixes[#surnameData.Suffixes];
+  end
+
   return Name:new({
-    FirstName = firstNameData.Name,
-    Surname = surnameData.Name,
+    FirstName = firstName,
+    Surname = surname,
   });
 end
 
