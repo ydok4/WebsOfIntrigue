@@ -132,7 +132,7 @@ DarkElfFactionTemplates = {
       },
 
       NobleFamilyFaction = {
-        NamePool = {"The SURNAME of WEBNAME", "The SURNAMEs", "The house of SURNAME", 
+        NamePool = {"The SURNAMEs of WEBNAME", "The SURNAMEs", "The house of SURNAME", 
         "The ADJECTIVE of house SURNAME", "House SURNAME", },
         PregeneratedAmount = 11,
         GrantedNameOverride = {
