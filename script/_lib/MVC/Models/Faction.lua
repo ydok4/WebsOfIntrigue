@@ -20,7 +20,7 @@ function Faction:new (o)
   setmetatable(o, self)
   self.__index = self
   return o
-end 
+end
 
 function Faction:SetCharacterAsRank(character, rank)
   local factionRank = FindFirstDataInTable(self.Ranks, "Name", {rank.Name, });

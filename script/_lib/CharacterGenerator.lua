@@ -3,7 +3,7 @@ require 'script/_lib/MVC/Models/Membership'
 
 require 'script/_lib/DataHelpers'
 
-function GenerateGender(isSexless, careers)
+function GenerateGender(isSexless, careers, maleGenderChance)
   if isSexless and isSexless == true then
     return "Sexless";
   else
@@ -20,7 +20,7 @@ function GenerateGender(isSexless, careers)
     end
 
     if maleExcluded == false and femaleExcluded == false then
-      if Random(2) == 2 then
+      if Roll100(maleGenderChance) then
         return "Male"
       else
         return "Female"
@@ -84,11 +84,19 @@ function GetRandomSurname(raceNames, gender)
   return surname;
 end
 
-function GenerateFullNameObject(raceNames, gender)
+function GenerateFullNameObject(raceNames, gender, nameSettings)
   local titlePrefix = "";
-  local firstName = GetRandomFirstName(raceNames, gender);
-  local surname = GetRandomSurname(raceNames, gender);
+  local firstName = "";
+  local surname = "";
   local titleSuffix = "";
+
+  if nameSettings.UseFirstName == true then
+    firstName = GetRandomFirstName(raceNames, gender);
+  end
+
+  if nameSettings.UseSurname == true then
+    surname = GetRandomSurname(raceNames, gender);
+  end
 
   return Name:new({
     TitlePrefix = titlePrefix,

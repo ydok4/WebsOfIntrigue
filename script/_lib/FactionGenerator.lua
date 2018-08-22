@@ -57,6 +57,9 @@ function GenerateFactionName(RaceResources, factionTemplate, webName, nameOverri
         end
         name = name:gsub("SURNAME", surname);
     end
+
+    name = ReplaceNamePoolDataByKeyword(RaceResources, name);
+
     return name;
 end
 
@@ -65,7 +68,7 @@ function GenerateNameOverrideObject(RaceResources, factionTemplate)
         local firstName = factionTemplate.GrantedNameOverride.FirstName;
         local surname = factionTemplate.GrantedNameOverride.Surname;
 
-        if factionTemplate.GrantedNameOverride.FirstName 
+        if factionTemplate.GrantedNameOverride.FirstName
         and string.match(factionTemplate.GrantedNameOverride.FirstName, "RANDOM") then
             firstName = GetRandomFirstName(RaceResources.Names, "Both");
         end
@@ -84,6 +87,17 @@ function GenerateNameOverrideObject(RaceResources, factionTemplate)
     else
         return nil;
     end
+end
+
+function ReplaceNamePoolDataByKeyword(raceResources, name)
+    for key, namePool in pairs(raceResources.FactionNamePools) do
+        if string.match(name, key) then
+            local randomNameFromPool = namePool[Random(#namePool)];
+            name = name:gsub(key, randomNameFromPool);
+        end
+    end
+
+    return name;
 end
 
 function GenerateFactionRanks(factionTemplate)
@@ -106,7 +120,7 @@ function GenerateRank(rankData)
         StealthValue = rankData.StealthValue,
         CharacterUUIDs = {},
         Gender = rankData.Gender,
-        UseCharacterOverride = rankData.UseCharacterOverride,
+        UseNameOverride = rankData.UseNameOverride,
     });
 end
 

@@ -6,10 +6,12 @@ require 'script/_lib/Resources/DarkElves/WebData/SpecialCharacters/DarkElfSpecia
 require 'script/_lib/Resources/DarkElves/WebData/Religions/DarkElfReligions'
 require 'script/_lib/Resources/DarkElves/WebData/Factions/DarkElfSpecialFactions'
 require 'script/_lib/Resources/DarkElves/WebData/Factions/DarkElfFactionTemplates'
+require 'script/_lib/Resources/DarkElves/WebData/Factions/DarkElfFactionNamePools'
 require 'script/_lib/Resources/DarkElves/WebData/Webs/DarkElfWebs'
 require 'script/_lib/Resources/DarkElves/WebData/Webs/DarkElfSpecialDistricts'
 require 'script/_lib/Resources/DarkElves/WebData/Webs/DarkElfDistricts'
 
+require 'script/_lib/Resources/DarkElves/CharacterData/CharacterSettings/DarkElfCharacterSettings'
 require 'script/_lib/Resources/DarkElves/CharacterData/Names/DarkElfNames'
 require 'script/_lib/Resources/DarkElves/CharacterData/Archetypes/DarkElfArchetypes'
 require 'script/_lib/Resources/DarkElves/CharacterData/Titles/DarkElfTitles'
@@ -22,6 +24,7 @@ require 'script/_lib/Resources/DarkElves/CharacterData/Careers/DarkElfCareers'
 
 
 local DarkElfResources = {
+    CharacterSettings = DarkElfCharacterSettings,
     SpecialCharacters = DarkElfSpecialCharacters,
     Names = DarkElfNames,
     Archetypes = DarkElfArchetypes,
@@ -35,6 +38,7 @@ local DarkElfResources = {
     Careers = DarkElfCareers,
     SpecialFactions = DarkElfSpecialFactions,
     FactionTemplates = DarkElfFactionTemplates,
+    FactionNamePools =  DarkElfFactionNamePools,
     Districts = DarkElfDistricts,
     SpecialDistricts = DarkElfSpecialDistricts,
     Webs = DarkElfWebs,

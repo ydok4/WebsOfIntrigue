@@ -69,7 +69,7 @@ DarkElfFactionTemplates = {
 
       
       NobilityFaction = {
-        NamePool = {"Nobility of WEBNAME", "Nobles of WEBNAME", },
+        NamePool = {"Noble Families of WEBNAME", "Noble Houses of WEBNAME", },
         PregeneratedAmount = 1,
         Ranks = {
           {
@@ -132,8 +132,8 @@ DarkElfFactionTemplates = {
       },
 
       NobleFamilyFaction = {
-        NamePool = {"The SURNAMEs of WEBNAME", "The SURNAMEs", "The house of SURNAME", 
-        "The ADJECTIVE of house SURNAME", "House SURNAME", },
+        NamePool = {"The SURNAMEs of WEBNAME", "The SURNAMEs", "The house of SURNAME",
+        "The ADJECTIVE NOUNs of house SURNAME", "House SURNAME", },
         PregeneratedAmount = 11,
         GrantedNameOverride = {
           TitlePrefix = nil,
@@ -167,7 +167,7 @@ DarkElfFactionTemplates = {
             Ordinal = 1,
             StealthValue = 100,
             Gender = "Male",
-            UseNameOverride = true,
+            UseNameOverride = false,
           },
           {
             Name = "Daughter",
@@ -176,7 +176,7 @@ DarkElfFactionTemplates = {
             Ordinal = 1,
             StealthValue = 100,
             Gender = "Female",
-            UseNameOverride = true,
+            UseNameOverride = false,
           },
           {
             Name = "Servant",
@@ -206,7 +206,7 @@ DarkElfFactionTemplates = {
       },
       
       GuildFactions = {
-        NamePool = {"The Guilds", },
+        NamePool = {"The GUILDTYPEs Guild",},
         PregeneratedAmount = 3,
         Ranks = {
           {

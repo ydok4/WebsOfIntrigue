@@ -3,6 +3,7 @@ require 'script/_lib/CharacterGenerator'
 
 require 'script/_lib/MVC/Models/Character'
 
+local RaceCharacterSettings = {};
 local RaceNames = {};
 local RaceTitles = {};
 local RaceSocialClasses = {};
@@ -21,6 +22,7 @@ local RaceSpecialCharactersForWeb = {};
 
 
 function InitialiseRaceData(raceResources, webName)
+  RaceCharacterSettings = raceResources.CharacterSettings;
   RaceNames = raceResources.Names;
   RaceTitles = raceResources.Titles;
   table.sort(raceResources.SocialClasses, SortByAppearanceChance);
@@ -199,10 +201,10 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
   if #rank.Gender > 0 then
     gender = rank.Gender;
   else
-    gender = GenerateGender(false, careerObjects);
+    gender = GenerateGender(false, careerObjects, RaceCharacterSettings.MaleGenderChance);
   end
 
-  local name = GenerateFullNameObject(RaceNames, gender);
+  local name = GenerateFullNameObject(RaceNames, gender, RaceCharacterSettings.NameSettings);
       
   local character = Character:new({
       UUID = GenerateUUID(),
@@ -217,8 +219,8 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
       Careers = career.Name,
     });
 
-  if rank.UseCharacterOverride == true then
-    character:SetCharacterName(factionData.GrantedNameOverride);
+  if rank.UseNameOverride == true then
+    character:SetName(factionData.GrantedNameOverride);
   end
 
   return character;
@@ -244,8 +246,8 @@ function GenerateCharacter(web)
     careerNames[#careerNames + 1] = career.Name;
   end
   
-  local gender = GenerateGender(false, careerObjects, RaceCareers);
-  local name = GenerateFullNameObject(RaceNames, gender);
+  local gender = GenerateGender(false, careerObjects, CharacterSettings.MaleGenderChance);
+  local name = GenerateFullNameObject(RaceNames, gender, RaceCharacterSettings.NameSettings);
   
   
   local character = Character:new({
