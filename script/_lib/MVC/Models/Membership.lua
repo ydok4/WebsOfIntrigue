@@ -3,6 +3,7 @@
     FactionName = "",
     Rank = 0,
     IsKnownMember = true,
+    Traits = {},
   }
   
 function Membership:new (o)

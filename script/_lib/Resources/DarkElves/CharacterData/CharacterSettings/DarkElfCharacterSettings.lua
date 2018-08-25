@@ -6,4 +6,6 @@ DarkElfCharacterSettings = {
         UseSurname = false,
     },
     MaleGenderChance = 50,
+    ExcludedSharedStartingTraits = {
+    },
 }

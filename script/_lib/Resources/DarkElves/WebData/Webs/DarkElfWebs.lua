@@ -37,7 +37,7 @@ DarkElfWebs = {
     ChildWebs = {},
     Districts = {"TheBlackTower", "BlackGuardTowers", "HarbourDistrict", "NobleDistrict", "SlaveDistrict", "TempleOfKhaineDistrict", "GuildsDistrict", },
   },
-  ---------------------------------  
+  ---------------------------------
   wh2_main_the_chill_road = {
     Name = "The Chill Road",
     Type = "Province",

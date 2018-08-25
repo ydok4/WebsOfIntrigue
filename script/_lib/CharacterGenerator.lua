@@ -1,5 +1,7 @@
 require 'script/_lib/MVC/Models/Name'
+require 'script/_lib/MVC/Models/Career'
 require 'script/_lib/MVC/Models/Membership'
+require 'script/_lib/MVC/Models/Trait'
 
 require 'script/_lib/DataHelpers'
 
@@ -128,7 +130,20 @@ function GenerateCareer(raceCareers, webCareers, background, socialClass)
   potentialCareers = FindDataItemsNotInTable(potentialCareers, "ExcludedBackgrounds", {background, "Any"});
   potentialCareers = FindDataItemsInTable(potentialCareers, "SocialClasses", {socialClass.Name, "Any"});
 
-  return potentialCareers[Random(#potentialCareers)];
+  local selectedCareer = potentialCareers[Random(#potentialCareers)];
+  return GenerateCareerFromData(selectedCareer);
+end
+
+function GenerateCareerFromData(careerData)
+  return Career:new({
+    Name = careerData.Name,
+    Archetype = careerData.Archetype,
+    CareerLevel = careerData.CareerLevel,
+
+    Actions = careerData.Actions,
+    Traits = careerData.Traits,
+    ExitCareers = careerData.ExitCareers,
+  });
 end
 
 function GetValidBackgroundFromCareers(raceBackgrounds, raceCareers, careers)
@@ -164,10 +179,94 @@ function GetValidSocialClassFromCareers(raceSocialClasses, careers)
 end
 
 function GenerateMembershipForFaction(factionData, rank)
+  local membershipTraits = GenerateMembershipTraits(factionData, rank);
   return Membership:new({
     FactionName = factionData.Name,
     FactionUUID = factionData.UUID,
     Rank = rank.Name,
     IsKnownMember = Roll100(rank.StealthValue),
+    Traits = membershipTraits,
   });
+end
+
+function GenerateMembershipTraits(factionData, rank)
+  local traits = {};
+  for key, trait in pairs(factionData.Traits) do
+    if Roll100(trait.CharacterAppearanceChance) then
+      traits[#traits + 1] = trait.Key;
+      if trait.IsExclusive then
+        break;
+      end
+    end
+  end
+
+  for key, rankTrait in pairs(rank.Traits) do
+    if Roll100(rankTrait.CharacterAppearanceChance) then
+      traits[#traits + 1] = trait.Key;
+      if trait.IsExclusive then
+        break;
+      end
+    end
+  end
+
+  return traits;
+end
+
+function GenerateTraits(character, raceTraits)
+  local traits = GenerateStartingTraitsForCharacter(character, raceTraits);
+  traits =  GenerateTraitsForCareers(character, traits, raceTraits);
+  traits = GenerateTraitsForFactions(character, traits, raceTraits);
+  return traits;
+end
+  
+function GenerateTraitFromData(traitData)
+  return Trait:new({
+    Name = traitData.Name,
+    Key = traitData.Key,
+    MutuallyExclusiveTraits = traitData.MutuallyExclusiveTraits,
+    StatRequirements = traitData.StatRequirements,
+    EventHistoryRequirements = traitData.EventHistoryRequirements,
+    GrantedActions = traitData.GrantedActions,
+    GrantedStatBonuses = traitData.GrantedStatBonuses,
+    EventStatBonuses = traitData.EventStatBonuses,
+  });
+end
+
+function GenerateStartingTraitsForCharacter(character, raceTraits)
+  local validTraits = {};
+  for key, trait in pairs(raceTraits) do
+    validTraits[#validTraits + 1] = trait;
+  end
+
+  local traitData = validTraits[Random(#validTraits)];
+
+  return { GenerateTraitFromData(traitData)};
+end
+
+function GenerateTraitsForCareers(character, existingTraits, raceTraits)
+  for key1, career in pairs(character.Careers) do
+    for key2, careerTrait in pairs(career.Traits) do
+      local newTraitData = raceTraits[careerTrait];
+      local newTrait = GenerateTraitFromData(newTraitData);
+      if newTrait:CanBeApplied(character) then
+        existingTraits[#existingTraits + 1] = newTrait;
+      end
+    end
+  end
+
+  return existingTraits;
+end
+
+function GenerateTraitsForFactions(character, existingTraits, raceTraits)
+  for key1, factionMembership in pairs(character.Memberships) do
+    for key2, factionTrait in pairs(factionMembership.Traits) do
+      local newTraitData = raceTraits[factionTrait];
+      local newTrait = GenerateTraitFromData(newTraitData);
+      if newTrait:CanBeApplied(character) then
+        existingTraits[#existingTraits + 1] = newTrait;
+      end
+    end
+  end
+
+  return existingTraits;
 end

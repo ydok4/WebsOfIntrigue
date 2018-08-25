@@ -105,6 +105,7 @@ function GenerateCharactersForFaction(charactersList, factionList, district, fac
   
 end
 
+
 function AddAdditionalFactionMembership(character, rank, factionList)
   for key, additionalMembership in pairs(rank.AdditionalMemberships) do
 
@@ -193,7 +194,8 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
   local socialClass = GetValidSocialClassFromCareers(RaceSocialClasses, careerObjects);
 
   --Pick a career from the rank careers
-  local career = GenerateCareer(RaceCareers, careerNames, background, socialClass)
+  local careers = {};
+  careers[#careers + 1] = GenerateCareer(RaceCareers, careerNames, background, socialClass);
 
   local race = GetRace(socialClass);
   
@@ -216,9 +218,10 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
       SocialClass = socialClass.Name,
       
       Background = background,
-      Careers = career.Name,
+      Careers = careers,
     });
 
+  local traits = GenerateTraits(character, RaceTraits);
   if rank.UseNameOverride == true then
     character:SetName(factionData.GrantedNameOverride);
   end

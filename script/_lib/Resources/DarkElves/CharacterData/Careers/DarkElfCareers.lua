@@ -75,7 +75,7 @@ DarkElfCareers = {
     GrantedMemberships = {},
     
     Actions = {"Serve", },
-    Traits = {"Rebel", },
+    Traits = {},
     
     ExitCareers = {},
     Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
@@ -113,7 +113,7 @@ DarkElfCareers = {
     GrantedMemberships = {},
     
     Actions = {"Rule", },
-    Traits = {"", },
+    Traits = {},
     
     ExitCareers = {},
     Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
@@ -130,7 +130,7 @@ DarkElfCareers = {
     GrantedMemberships = {},
     
     Actions = {"Rule", },
-    Traits = {"", },
+    Traits = {},
     
     ExitCareers = {},
     Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 
@@ -147,7 +147,7 @@ DarkElfCareers = {
     GrantedMemberships = {},
     
     Actions = {"Rule", },
-    Traits = {"", },
+    Traits = {},
     
     ExitCareers = {},
     Goals = {"ObeyLoyaltyOwner", "KillLoyaltyOwner", "Survive"}, 

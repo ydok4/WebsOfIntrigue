@@ -49,6 +49,7 @@ DarkElfFactionTemplates = {
             Ordinal = 0,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           {
             Name = "Vaulkhar",
@@ -63,6 +64,15 @@ DarkElfFactionTemplates = {
             Ordinal = 1,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
+          },
+        },
+        Traits = {
+           {
+            Key = "ExperiencedRuler",
+            IsExclusive = false,
+            FactionAppearanceChance = 100,
+            CharacterAppearanceChance = 50,
           },
         },
       },
@@ -85,6 +95,7 @@ DarkElfFactionTemplates = {
             Ordinal = 0,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           {
             Name = "Residence Owner",
@@ -99,6 +110,7 @@ DarkElfFactionTemplates = {
             Ordinal = 1,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           {
             Name = "Manor Owner",
@@ -113,6 +125,7 @@ DarkElfFactionTemplates = {
             Ordinal = 2,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           --[[{
             Name = "Noble",
@@ -129,6 +142,7 @@ DarkElfFactionTemplates = {
             Gender = "",
           },--]]
         },
+        Traits = {},
       },
 
       NobleFamilyFaction = {
@@ -150,6 +164,7 @@ DarkElfFactionTemplates = {
             StealthValue = 100,
             Gender = "Female",
             UseNameOverride = true,
+            Traits = {},
           },
           {
             Name = "Patriarch",
@@ -159,6 +174,7 @@ DarkElfFactionTemplates = {
             StealthValue = 100,
             Gender = "Male",
             UseNameOverride = true,
+            Traits = {},
           },
           {
             Name = "Son",
@@ -168,6 +184,7 @@ DarkElfFactionTemplates = {
             StealthValue = 100,
             Gender = "Male",
             UseNameOverride = false,
+            Traits = {},
           },
           {
             Name = "Daughter",
@@ -177,6 +194,7 @@ DarkElfFactionTemplates = {
             StealthValue = 100,
             Gender = "Female",
             UseNameOverride = false,
+            Traits = {},
           },
           {
             Name = "Servant",
@@ -185,6 +203,7 @@ DarkElfFactionTemplates = {
             Ordinal = 1,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           {
             Name = "Retainer",
@@ -193,6 +212,7 @@ DarkElfFactionTemplates = {
             Ordinal = 1,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           {
             Name = "Slave",
@@ -201,8 +221,10 @@ DarkElfFactionTemplates = {
             Ordinal = 2,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
         },
+        Traits = {},
       },
       
       GuildFactions = {
@@ -216,6 +238,7 @@ DarkElfFactionTemplates = {
             Ordinal = 0,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           {
             Name = "Guild Members",
@@ -224,6 +247,7 @@ DarkElfFactionTemplates = {
             Ordinal = 1,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           {
             Name = "Guild Initiate",
@@ -232,8 +256,10 @@ DarkElfFactionTemplates = {
             Ordinal = 2,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
         },
+        Traits = {},
       },
       
       BarracksFaction = {
@@ -247,6 +273,7 @@ DarkElfFactionTemplates = {
             Ordinal = 0,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           {
             Name = "Standard Bearer",
@@ -255,6 +282,7 @@ DarkElfFactionTemplates = {
             Ordinal = 1,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           {
             Name = "Musician",
@@ -263,6 +291,7 @@ DarkElfFactionTemplates = {
             Ordinal = 1,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           {
             Name = "Militia Member",
@@ -271,8 +300,10 @@ DarkElfFactionTemplates = {
             Ordinal = 2,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
         },
+        Traits = {},
       },
       
       HarbourFaction = {
@@ -286,23 +317,27 @@ DarkElfFactionTemplates = {
             Ordinal = 0,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           {
-            Name = "Ship Captain",
+            Name = "Captain",
             Careers = {"Noble", "Reaver", "Corsair", },
             Limit = 0,
             Ordinal = 1,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
           {
-            Name = "Sailor",
+            Name = "Seafarer",
             Careers = {"Noble", "Corsair", "Dreadspear", "Bleaksword", "Darkshard",},
             Limit = 0,
             Ordinal = 2,
             StealthValue = 100,
             Gender = "",
+            Traits = {},
           },
         },
+        Traits = {},
       },
 }

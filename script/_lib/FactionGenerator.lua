@@ -121,11 +121,19 @@ function GenerateRank(rankData)
         CharacterUUIDs = {},
         Gender = rankData.Gender,
         UseNameOverride = rankData.UseNameOverride,
+        Traits = rankData.Traits,
     });
 end
 
 function GenerateFactionTraits(factionTemplate)
-
+    local selectedTraits = {};
+    for key, trait in pairs(factionTemplate.Traits) do
+        if Roll100(trait.FactionAppearanceChance) then
+            selectedTraits[#selectedTraits + 1] = trait;
+        end
+    end
+    
+    return selectedTraits;
 end
 
 function GenerateFactionGoals(factionTemplate)
