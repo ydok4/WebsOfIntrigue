@@ -44,6 +44,14 @@ DarkElfTraits = {
         Name = "Arrogant",
         Key = "Fearless",
     },
+    Sadistic = {
+        Name = "Sadistic",
+        Key = "Sadistic",
+    },
+    Disciplined = {
+        Name = "Disciplined",
+        Key = "Disciplined",
+    },
     -- Career specific Traits
     MurderousProwess = {
         Name = "Murderous prowess",
