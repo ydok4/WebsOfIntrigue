@@ -20,4 +20,7 @@ function webs_of_intrigue(isIDE)
     InitialiseUIListeners(webs);
     Custom_Log("Finished UI listeners");
   end
+
+  TriggerDarkElfEventManagerStep();
+  local test = "";
  end

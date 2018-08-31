@@ -3,6 +3,7 @@ DarkElfFactionTemplates = {
         SlaversFaction = {
         NamePool = {"The Slave Traders", },
         PregeneratedAmount = 1,
+        Types = {},
         Ranks = {
           {
             Name = "Slave Master",
@@ -35,6 +36,7 @@ DarkElfFactionTemplates = {
         NamePool = {"Rulers of WEBNAME", },
         PregeneratedAmount = 1,
         RelatedDistrict = "NobleDistrict",
+        Types = {},
         Ranks = {
           {
             Name = "Drachau",
@@ -81,6 +83,7 @@ DarkElfFactionTemplates = {
       NobilityFaction = {
         NamePool = {"Noble Families of WEBNAME", "Noble Houses of WEBNAME", },
         PregeneratedAmount = 1,
+        Types = {},
         Ranks = {
           {
             Name = "Estate Owner",
@@ -149,6 +152,7 @@ DarkElfFactionTemplates = {
         NamePool = {"The SURNAMEs of WEBNAME", "The SURNAMEs", "The house of SURNAME",
         "The ADJECTIVE NOUNs of house SURNAME", "House SURNAME", },
         PregeneratedAmount = 11,
+        Types = {},
         GrantedNameOverride = {
           TitlePrefix = nil,
           FirstName = nil,
@@ -230,6 +234,7 @@ DarkElfFactionTemplates = {
       GuildFactions = {
         NamePool = {"The GUILDTYPEs Guild",},
         PregeneratedAmount = 3,
+        Types = {},
         Ranks = {
           {
             Name = "Guild Masters",
@@ -265,6 +270,7 @@ DarkElfFactionTemplates = {
       BarracksFaction = {
         NamePool = {"The Barracks Faction", },
         PregeneratedAmount = 1,
+        Types = {"Military", },
         Ranks = {
           {
             Name = "Lordling",
@@ -309,6 +315,7 @@ DarkElfFactionTemplates = {
       HarbourFaction = {
         NamePool = {"The Harbour Faction", },
         PregeneratedAmount = 1,
+        Types = {},
         Ranks = {
           {
             Name = "Harbour Master",

@@ -1,5 +1,6 @@
 -- Helper classes
 require 'script/_lib/WebHelpers'
+require 'script/_lib/EventHelpers'
 
 -- Resource Files
 require 'script/_lib/Resources/DarkElves/WebData/SpecialCharacters/DarkElfSpecialCharacters'
@@ -22,6 +23,10 @@ require 'script/_lib/Resources/DarkElves/CharacterData/Backgrounds/DarkElfBackgr
 require 'script/_lib/Resources/DarkElves/CharacterData/Natures/DarkElfNatures'
 require 'script/_lib/Resources/DarkElves/CharacterData/Careers/DarkElfCareers'
 
+require 'script/_lib/Resources/DarkElves/EventData/DarkElfEvents'
+
+-- Models
+require 'script/_lib/MVC/Models/NarrativeManager'
 
 local DarkElfResources = {
     CharacterSettings = DarkElfCharacterSettings,
@@ -43,9 +48,23 @@ local DarkElfResources = {
     SpecialDistricts = DarkElfSpecialDistricts,
     Webs = DarkElfWebs,
   }
-  
+
+  local DarkElfNarrativeManager = {};
+  local DarkElfWebObjects = {};
+
   function InitialiseNaggaroth()
-    local web = CreateWeb(DarkElfResources, "Naggaroth", "", "");
-    local test = "";
-    return web;
+    DarkElfWebObjects = {CreateWeb(DarkElfResources, "Naggaroth", "", "")};
+    InitialiseDarkElfEventManager();
+    return DarkElfWebObjects;
+  end
+
+  function InitialiseDarkElfEventManager()
+    -- Initialise the object
+    DarkElfNarrativeManager = NarrativeManager:new({
+      EventResources = LoadEventResources(DarkElfEvents);
+    });
+  end
+
+  function TriggerDarkElfEventManagerStep()
+    DarkElfNarrativeManager:TriggerEventsForWebs(DarkElfWebObjects);
   end

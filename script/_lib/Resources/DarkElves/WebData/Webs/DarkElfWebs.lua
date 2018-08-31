@@ -10,8 +10,8 @@ DarkElfWebs = {
     SocialClassModifier = 0,
     ChildWebs = { "wh2_main_the_black_flood", }, --"wh2_main_iron_mountains", "wh2_main_the_chill_road",
     Districts = {},
+    Traits = {},
   },
-  
   
   wh2_main_iron_mountains = {
     Name = "Naggarond Province",
@@ -24,10 +24,11 @@ DarkElfWebs = {
     SocialClassModifier = 0,
     ChildWebs = {"wh2_main_iron_mountains_naggarond", },
     Districts = {"TheBlackHighway", },
+    Traits = {},
   },
   wh2_main_iron_mountains_naggarond = {
     Name = "Naggarond",
-    Type = "ProvincalCapital",
+    Type = "Settlement",
     Population = 5,
     SupportedBackgrounds = {"Nobility", "Mercantile", "Rural", "Slave",},
     ExtraCareers = {},
@@ -36,6 +37,7 @@ DarkElfWebs = {
     SocialClassModifier = 30,
     ChildWebs = {},
     Districts = {"TheBlackTower", "BlackGuardTowers", "HarbourDistrict", "NobleDistrict", "SlaveDistrict", "TempleOfKhaineDistrict", "GuildsDistrict", },
+    Traits = {},
   },
   ---------------------------------
   wh2_main_the_chill_road = {
@@ -49,10 +51,11 @@ DarkElfWebs = {
     SocialClassModifier = 0,
     ChildWebs = {"wh2_main_the_chill_road_ghrond", },
     Districts = {"TheBlackHighway", },
+    Traits = {},
   },
   wh2_main_the_chill_road_ghrond = {
     Name = "Ghrond",
-    Type = "ProvincalCapital",
+    Type = "Settlement",
     Population = 5,
     SupportedBackgrounds = {"Nobility", "Mercantile", "Urban", "Slave"},
     ExtraCareers = {},
@@ -61,6 +64,7 @@ DarkElfWebs = {
     SocialClassModifier = 25,
     ChildWebs = {},
     Districts = {},
+    Traits = {},
   },
   ----------------------------------
   wh2_main_the_black_flood = {
@@ -74,10 +78,11 @@ DarkElfWebs = {
     SocialClassModifier = 0,
     ChildWebs = {"wh2_main_the_black_flood_hag_graef", },
     Districts = {},
+    Traits = {"FrozenClimate",},
   },
   wh2_main_the_black_flood_hag_graef = {
     Name = "Hag Graef",
-    Type = "ProvincalCapital",
+    Type = "Settlement",
     Population = 5,
     SupportedBackgrounds = {"Nobility", "Mercantile", "Urban", "Slave"},
     ExtraCareers = {},
@@ -85,6 +90,7 @@ DarkElfWebs = {
     RulingFaction = {"MajorCityGovernmentFaction"},
     SocialClassModifier = 25,
     ChildWebs = {},
-    Districts = {"NobleDistrict", "HarbourDistrict",},
+    Districts = {"NobleDistrict", "HarbourDistrict", },
+    Traits = {"FrozenClimate",},
   },
 }

@@ -29,6 +29,7 @@
     History = {},
     -- List of History objects
     PlayerKnownHistory = {},
+    EventHistory = {},
     
     -- Loyalty Object
     LoyaltyRaceLeader = {},
@@ -36,8 +37,7 @@
     LoyaltyDirectOwner = {},
     -- List of loyalty objects
     LoyaltyOtherCharacters = {},
-  }
-  
+}
   
 function Character:new (o)
     o = o or {}   -- create object if user does not provide one
@@ -78,4 +78,26 @@ function Character:SetName(nameObject)
       self.Name.TitleSuffix = nameObject.TitleSuffix;
     end
   end
+end
+
+function Character:ApplyEventAndReturnResult(event, currentTurn, web)
+  local selectedResult = event:FindResultForScope(self, 'Character', web);
+  if selectedResult then
+    self:ApplyEventResult(event, selectedResult, currentTurn);
+  end
+
+  return selectedResult;
+end
+
+function Character:ApplyEventResult(event, result, currentTurn)
+  result.ResultEffect(self);
+  self:AddEventHistory(event.Key, result.Key, currentTurn);
+end
+
+function Character:AddEventHistory(eventKey, resultKey, currentTurn)
+  self.EventHistory[#self.EventHistory + 1] = {eventKey, resultKey, currentTurn};
+end
+
+function Character:ChangePrimaryCharacteristic(key, value)
+  self[key] = self[key] + value;
 end

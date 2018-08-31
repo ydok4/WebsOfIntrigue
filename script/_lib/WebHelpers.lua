@@ -12,7 +12,7 @@ function CreateWeb(RaceResources, webName, parentName, parentUUID)
   end
   
   local web = Web:new({
-    UUID = uuid,--GenerateUUID(),
+    UUID = uuid,
     ParentUUID = parentUUID,
     Name = webSchema.Name,
     ParentName = parentName,
@@ -24,33 +24,28 @@ function CreateWeb(RaceResources, webName, parentName, parentUUID)
     Districts = webSchema.Districts,
     ExtraFactions = webSchema.ExtraFactions,
     Type = webSchema.Type,
+    Traits = webSchema.Traits,
+    EventHistory = {},
   });
       
       
   if #webSchema.ChildWebs > 0 then
-    
     local webChildren = {};
     for key,value in pairs(webSchema.ChildWebs) do
-      
       local childWeb = CreateWeb(RaceResources, value, web.Name, web.UUID);
       webChildren[#webChildren + 1] = childWeb;
-      
     end
     
     web.ChildWebs = webChildren;
-    
   end
   
   if #webSchema.Districts > 0 then
     local Districts = {};
     for key,value in pairs(webSchema.Districts) do
-      
       local district = CreateDistrict(RaceResources, value, web);
       Districts[#Districts + 1] = district;
-      
     end
-    
-    web.Districts = Districts;        
+    web.Districts = Districts;
   end
   
   return web;
@@ -97,7 +92,6 @@ function SearchChildWebs(webUUID, web)
   if not web then
     return;
   end
-  local foundWeb = {};
   for key, childWeb in pairs(web.ChildWebs) do
     if childWeb.UUID == webUUID then
       return childWeb;
@@ -172,7 +166,6 @@ function SearchChildWebsForNameWhichMatchesWebType(web, webType, webs)
     return;
   end
   for key, childWeb in pairs(web.ChildWebs) do
-    --Custom_Log(childWeb.Name);
     if childWeb.Type == webType then
       webs[#webs + 1] = childWeb;
     end

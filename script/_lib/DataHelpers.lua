@@ -94,9 +94,9 @@ end
 function TableLength(T)
   local count = 0
   for k,v in pairs(T) do 
-    count = count + 1 
+    count = count + 1; 
   end
-  return count
+  return count;
 end
 
 function SortByAppearanceChance(a,b)
@@ -113,4 +113,13 @@ local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
         local v = (c == 'x') and math.random(0, 0xf) or math.random(8, 0xb)
         return string.format('%x', v)
     end);
+end
+
+function GetRandomObjectFromList(objectList)
+    local tempTable = {}
+    for key, value in pairs(objectList) do
+      tempTable[#tempTable+1] = key; --Store keys in another table
+    end
+    local index = tempTable[Random(#tempTable)];
+    return objectList[index];
 end

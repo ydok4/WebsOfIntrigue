@@ -21,6 +21,7 @@ function CreateDistrict(RaceResources, districtName, parentWeb)
         Characters = {},
         ActiveFactions = GenerateFactionsForDistrict(RaceResources, parentWeb, 
                                                     districtSchema, matchingExtraFactionForDistrict),
+        EventHistory = {},
     });
 
     district.Characters = CreateCharactersForDistrict(RaceResources, district);

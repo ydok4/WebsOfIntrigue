@@ -79,7 +79,6 @@ function GenerateCharactersForFaction(charactersList, factionList, district, fac
 
   -- Generate a number of characters for each rank
   for key, rank in pairs(factionData.Ranks) do
-    
     local numberOfChars = 0;
     if factionData:IsRankPositionAvailable(rank) then
       if rank.Limit == 0 then
@@ -133,7 +132,7 @@ function AddAdditionalFactionMembership(character, rank, factionList)
     else
       additionalFaction:SetCharacterAsRank(character, additionalRank);
     end
-    character.Memberships[#character.Memberships + 1] = GenerateMembershipForFaction(additionalFaction, additionalRank);
+    character.Memberships[additionalFaction.UUID] = GenerateMembershipForFaction(additionalFaction, additionalRank);
 
     if additionalFaction.GrantedNameOverride then
       character:SetName(additionalFaction.GrantedNameOverride);
@@ -172,7 +171,6 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
   local careerIDs = {};
   local careerObjects = {};
   local careerNames = {};
-  --careerIDs[#careerIDs + 1] = rank.Careers[Random(#rank.Careers)];
   
   for key, career in pairs(rank.Careers) do
     if rank.Gender and career.Gender then
@@ -189,7 +187,7 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
   end
   
   local factionMemberships = {}
-  factionMemberships[#factionMemberships + 1] = GenerateMembershipForFaction(factionData, rank);
+  factionMemberships[factionData.UUID] = GenerateMembershipForFaction(factionData, rank);
   local background = GetValidBackgroundFromCareers(RaceBackgrounds, RaceCareers, careerObjects).Name;
   local socialClass = GetValidSocialClassFromCareers(RaceSocialClasses, careerObjects);
 
@@ -219,6 +217,8 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
       
       Background = background,
       Careers = careers,
+
+      EventHistory = {},
     });
 
   local traits = GenerateTraits(character, RaceTraits);
@@ -264,6 +264,7 @@ function GenerateCharacter(web)
       
       Background = background,
       Careers = careerNames,
+      EventHistory = {},
     });
   
   return character;
