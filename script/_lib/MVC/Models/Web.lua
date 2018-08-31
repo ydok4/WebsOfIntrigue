@@ -58,8 +58,8 @@ function Web:ApplyEventForWebScope(event, currentTurn)
 end
 
 function Web:ApplyEventForDistrictScope(event, currentTurn)
-  local validResults = event:FindResultsForScope('District');
-  for key, result in pairs(validResults) do
+  local scopeResults = event:FindResultsForScope('District');
+  for key, result in pairs(scopeResults) do
     for key2, district in pairs(self.Districts) do
       district:ApplyEventAndReturnResult(event, currentTurn);
       self:ApplyEventForCharacterScope(event, currentTurn, district);
