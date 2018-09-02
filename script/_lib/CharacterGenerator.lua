@@ -184,6 +184,7 @@ function GenerateMembershipForFaction(factionData, rank)
     FactionName = factionData.Name,
     FactionUUID = factionData.UUID,
     Rank = rank.Name,
+    OrdinalRank = rank.Ordinal,
     IsKnownMember = Roll100(rank.StealthValue),
     Traits = membershipTraits,
   });

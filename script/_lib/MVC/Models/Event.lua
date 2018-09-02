@@ -6,6 +6,7 @@ Event = {
     Scope = "",
     ResultPool = {},
     CanApplyEvent = {},
+    CachedDataFunction = {},
   }
 
 function Event:new (o)
@@ -17,7 +18,7 @@ end
 
 function Event:IsThereResultForWebType(webType)
   for key, result in pairs(self.ResultPool) do
-    if result.Scope == webType then
+    if AreValuesInList(result.Scopes, {webType}) then
       return true;
     end
   end
@@ -25,10 +26,10 @@ function Event:IsThereResultForWebType(webType)
   return false;
 end
 
-function Event:FindResultsForScope(scope)
+function Event:FindResultsForScope(object, scope, cachedData)
   local validResults = {};
   for key, result in pairs(self.ResultPool) do
-      if  result.Scope == scope then
+      if AreValuesInList(result.Scopes, {scope}) and self.CheckResultIsValid(self, object, result, cachedData) then
         validResults[#validResults + 1] = result;
       end
   end

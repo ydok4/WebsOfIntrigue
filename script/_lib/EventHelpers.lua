@@ -18,5 +18,6 @@ function MapEventData(eventSchema)
         Scope = eventSchema.Scope,
         ResultPool = eventSchema.ResultPool,
         CanApplyEvent = eventSchema.CanApplyEvent,
+        CachedDataFunction = eventSchema.CachedDataFunction,
     });
 end

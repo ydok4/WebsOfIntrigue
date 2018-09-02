@@ -80,8 +80,9 @@ function Character:SetName(nameObject)
   end
 end
 
-function Character:ApplyEventAndReturnResult(event, currentTurn, web)
-  local selectedResult = event:FindResultForScope(self, 'Character', web);
+function Character:ApplyEventAndReturnResult(event, currentTurn, cachedData)
+  local selectedResults = event:FindResultsForScope(self, 'Character', cachedData);
+  local selectedResult = GetRandomObjectFromList(selectedResults);
   if selectedResult then
     self:ApplyEventResult(event, selectedResult, currentTurn);
   end

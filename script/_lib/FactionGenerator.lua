@@ -17,6 +17,7 @@ function GenerateFactionForDistrict(RaceResources, district, factionTemplateSche
         SocialClassModifier = factionTemplateSchema.SocialClassModifier,
         MemberCharacters = {},
         Traits = GenerateFactionTraits(factionTemplateSchema),
+        Types = factionTemplateSchema.Types,
         Goals =  GenerateFactionGoals(factionTemplateSchema),
         Actions = GenerateFactionActions(factionTemplateSchema),
     });
@@ -36,6 +37,7 @@ function GenerateSpecialFactionForDistrict(RaceResources, district, specialFacti
         SocialClassModifier = specialFactionSchema.SocialClassModifier,
         MemberCharacters = {},
         Traits = GenerateFactionTraits(specialFactionSchema),
+        Types = factionTemplateSchema.Types,
         Goals =  GenerateFactionGoals(specialFactionSchema),
         Actions = GenerateFactionActions(specialFactionSchema),
     });

@@ -4,44 +4,33 @@ DarkElfEvents = {
         Scope = "Settlement",
         NamePool = {"SETTLEMENTNAME has unseasonal cold weather", "SETTLEMENTNAME is cold"},
         CanApplyEvent = function(web) return AreValuesInList(web.Traits, {"FrozenClimate",}); end,
+        CachedDataFunction = function(self, web, district, character)
+            return {
+                MatchingFactions = web:GetFactionsWithType("Military"),
+            }
+        end,
         ResultPool = {
-            SettlementIceStorm = {
-                Key = 'SettlementIceStorm',
-                Scope = "Settlement",
+            IceStormDefault = {
+                Key = 'IceStormDefault',
+                Scopes = {"Settlement", "District", "Character"},
                 CanApplyResult = function(web) return true; end,
                 ResultEffect = function() end,
                 NextEvent = {},
             },
-            DistrictIceStorm = {
-                Key = 'DistrictIceStorm',
-                Scope = "District",
-                CanApplyResult = function(district) return true; end,
-                ResultEffect = function() end,
-                NextEvent = {},
-            },
-            CharacterIceStorm = {
-                Key = 'CharacterIceStorm',
-                Scope = "Character",
-                CanApplyResult = function(character) return true; end,
-                ResultEffect = function() end,
-                Priority = 1,
-                NextEvent = {},
-            },
-            WeakenedForces = {
-                    Key = 'WeakenedForces',
-                    Scope = "Character",
+            IceStormWeakenedForces = {
+                    Key = 'IceStormWeakenedForces',
+                    Scopes = {"Character",},
                     Priority = 0,
                     ResultEffect = function(character) character:ChangePrimaryCharacteristic("Strength", -5);  end,
-                    CachedDataFunction = function(web, district, character)
-                        return {
-                            matchingFactions = web:GetFactionsWithType("Military"),
-                        }
-                    end,
                     CanApplyResult = function(character, cachedData)
-                        for key, faction in pairs(cachedData.matchingFactions) do
-                            local rank = faction:GetCharacterRank(character);
-                            if rank and  rank.Ordinal == 0 then
-                                return true;
+                        if TableLength(cachedData.MatchingFactions) > 0 then
+                            for key, membership in pairs(character.Memberships) do
+                                if membership.OrdinalRank == 0 then
+                                    local faction = cachedData.MatchingFactions[membership.FactionUUID];
+                                    if faction and faction:HasType("Military") then
+                                        return true;
+                                    end
+                                end
                             end
                         end
                         return false;

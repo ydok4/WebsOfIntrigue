@@ -18,8 +18,9 @@ function District:new (o)
   return o
 end
 
-function District:ApplyEventAndReturnResult(event, currentTurn)
-  local selectedResult = event:FindResultForScope(self, 'District');
+function District:ApplyEventAndReturnResult(event, currentTurn, cachedData)
+  local selectedResults = event:FindResultsForScope(self, 'District', cachedData);
+  local selectedResult = GetRandomObjectFromList(selectedResults);
   if selectedResult then
     self:ApplyEventResult(event, selectedResult, currentTurn);
   end

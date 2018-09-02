@@ -26,7 +26,7 @@ function Web:GetFactionsWithType(type)
   for key, district in pairs(self.Districts) do
     for key, faction in pairs(district.ActiveFactions) do
       if faction:HasType(type) then
-        matchingFactions[#matchingFactions + 1] = faction;
+        matchingFactions[faction.UUID] = faction;
       end
     end
   end
@@ -46,30 +46,29 @@ function Web:ApplyEventAndReturnResult(event, currentTurn)
 end
 
 function Web:ApplyEventForWebScope(event, currentTurn)
-  local selectedResult = event:FindResultForScope(self, self.Type);
+  local cachedData = event:CachedDataFunction(self, nil, nil);
+  local selectedResults = event:FindResultsForScope(self, self.Type, cachedData);
+  local selectedResult = GetRandomObjectFromList(selectedResults);
   if selectedResult then
-    self:ApplyEventResult(event, selectedResult, currentTurn);
+    self:ApplyEventResult(event, selectedResult, currentTurn, cachedData);
   end
   if #self.Districts > 0 then
-    self:ApplyEventForDistrictScope(event, currentTurn);
+    self:ApplyEventForDistrictScope(event, currentTurn, cachedData);
   end
 
   return selectedResult;
 end
 
-function Web:ApplyEventForDistrictScope(event, currentTurn)
-  local scopeResults = event:FindResultsForScope('District');
-  for key, result in pairs(scopeResults) do
-    for key2, district in pairs(self.Districts) do
-      district:ApplyEventAndReturnResult(event, currentTurn);
-      self:ApplyEventForCharacterScope(event, currentTurn, district);
-    end
+function Web:ApplyEventForDistrictScope(event, currentTurn, cachedData)
+  for key1, district in pairs(self.Districts) do
+    district:ApplyEventAndReturnResult(event, currentTurn, cachedData);
+    self:ApplyEventForCharacterScope(event, currentTurn, district, cachedData);
   end
 end
 
-function Web:ApplyEventForCharacterScope(event, currentTurn, district)
-  for key, character in pairs(district.Characters) do
-    character:ApplyEventAndReturnResult(event, currentTurn, self);
+function Web:ApplyEventForCharacterScope(event, currentTurn, district, cachedData)
+  for key1, character in pairs(district.Characters) do
+    character:ApplyEventAndReturnResult(event, currentTurn, cachedData);
   end
 end
 
