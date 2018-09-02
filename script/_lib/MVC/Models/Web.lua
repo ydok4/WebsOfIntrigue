@@ -47,8 +47,7 @@ end
 
 function Web:ApplyEventForWebScope(event, currentTurn)
   local cachedData = event:CachedDataFunction(self, nil, nil);
-  local selectedResults = event:FindResultsForScope(self, self.Type, cachedData);
-  local selectedResult = GetRandomObjectFromList(selectedResults);
+  local selectedResult = event:FindResultForScope(self, self.Type, cachedData);
   if selectedResult then
     self:ApplyEventResult(event, selectedResult, currentTurn, cachedData);
   end

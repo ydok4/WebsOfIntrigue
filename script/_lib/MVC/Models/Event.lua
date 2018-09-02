@@ -26,7 +26,7 @@ function Event:IsThereResultForWebType(webType)
   return false;
 end
 
-function Event:FindResultsForScope(object, scope, cachedData)
+function Event:FindResultForScope(object, scope, cachedData)
   local validResults = {};
   for key, result in pairs(self.ResultPool) do
       if AreValuesInList(result.Scopes, {scope}) and self.CheckResultIsValid(self, object, result, cachedData) then
@@ -34,7 +34,11 @@ function Event:FindResultsForScope(object, scope, cachedData)
       end
   end
   if #validResults > 0 then
-    return validResults;
+    if #validResults == 1 then
+      return GetRandomObjectFromList(validResults);
+    end
+    local equalHighestPriorityResults = GetHighestPriorityResults(validResults);
+    return GetRandomObjectFromList(equalHighestPriorityResults);
   end
   return nil;
 end

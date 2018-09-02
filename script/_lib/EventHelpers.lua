@@ -21,3 +21,18 @@ function MapEventData(eventSchema)
         CachedDataFunction = eventSchema.CachedDataFunction,
     });
 end
+
+function GetHighestPriorityResults(results)
+    local highestPriorityResults = {};
+    local highestPriorityNumber = 0;
+    for key, result in pairs(results) do
+        if result.Priority == highestPriorityNumber then
+            highestPriorityResults[#highestPriorityResults + 1] = result;
+        elseif result.Priority > highestPriorityNumber then
+            highestPriorityResults = {};
+            highestPriorityResults[#highestPriorityResults + 1] = result;
+            highestPriorityNumber = result.Priority
+        end
+    end
+    return highestPriorityResults;
+end

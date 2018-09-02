@@ -13,6 +13,7 @@ DarkElfEvents = {
             IceStormDefault = {
                 Key = 'IceStormDefault',
                 Scopes = {"Settlement", "District", "Character"},
+                Priority = 0,
                 CanApplyResult = function(web) return true; end,
                 ResultEffect = function() end,
                 NextEvent = {},
@@ -20,7 +21,7 @@ DarkElfEvents = {
             IceStormWeakenedForces = {
                     Key = 'IceStormWeakenedForces',
                     Scopes = {"Character",},
-                    Priority = 0,
+                    Priority = 1,
                     ResultEffect = function(character) character:ChangePrimaryCharacteristic("Strength", -5);  end,
                     CanApplyResult = function(character, cachedData)
                         if TableLength(cachedData.MatchingFactions) > 0 then

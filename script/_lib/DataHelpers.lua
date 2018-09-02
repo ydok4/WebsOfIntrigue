@@ -118,7 +118,7 @@ end
 function GetRandomObjectFromList(objectList)
     local tempTable = {}
     for key, value in pairs(objectList) do
-      tempTable[#tempTable+1] = key; --Store keys in another table
+      tempTable[#tempTable + 1] = key; --Store keys in another table
     end
     local index = tempTable[Random(#tempTable)];
     return objectList[index];
