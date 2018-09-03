@@ -26,8 +26,9 @@ function CreateWeb(RaceResources, webName, parentName, parentUUID)
     Type = webSchema.Type,
     Traits = webSchema.Traits,
     EventHistory = {},
+    ActiveEventChains = {},
+    CompletedEventChains = {},
   });
-      
       
   if #webSchema.ChildWebs > 0 then
     local webChildren = {};

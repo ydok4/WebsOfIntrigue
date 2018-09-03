@@ -1,13 +1,15 @@
 require 'script/_lib/DataHelpers'
 
 require 'script/_lib/MVC/Models/Event'
+require 'script/_lib/MVC/Models/EventChain'
 
 function LoadEventResources(raceResources)
     local eventObjects = {};
     for key, eventSchema in pairs(raceResources) do
-        eventObjects[#eventObjects + 1] = MapEventData(eventSchema);
+        local mappedEvent = MapEventData(eventSchema)
+        eventObjects[mappedEvent.Key] = mappedEvent;
     end
-    -- TODO: Combine the valid generic events with the race revents 
+    -- TODO: Combine the valid generic events with the race revents
     return eventObjects;
 end
 
@@ -35,4 +37,30 @@ function GetHighestPriorityResults(results)
         end
     end
     return highestPriorityResults;
+end
+
+function GenerateEventChain(event, result, currentTurn, object)
+    local nextEventData = {};
+    if result.NextEvent.EventChainKey then
+       nextEventData = {
+            EventKey = result.NextEvent.EventKey,
+            TurnNumber = (result.NextEvent.TurnNumber + currentTurn),
+        };
+    end
+
+    return EventChain:new({
+        Key = result.NextEvent.EventChainKey,
+        ObjectUUID = object.UUID,
+        ElapsedEvents = {
+            {EventKey = event.Key, ResultKey = result.Key, TurnNumber = currentTurn,}
+        },
+        NextEvent = nextEventData,
+    });
+end
+
+function ConvertEventChainToCompletedChain(eventChain)
+    local eventChainConverted = eventChain;
+    eventChainConverted.NextEvent = nil;
+
+    return eventChainConverted;
 end

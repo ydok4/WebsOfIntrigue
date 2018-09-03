@@ -66,5 +66,5 @@ local DarkElfResources = {
   end
 
   function TriggerDarkElfEventManagerStep()
-    DarkElfNarrativeManager:TriggerEventsForWebs(DarkElfWebObjects);
+    DarkElfNarrativeManager:StartTriggerEvents(DarkElfWebObjects);
   end

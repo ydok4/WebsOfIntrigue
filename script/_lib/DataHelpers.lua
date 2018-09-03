@@ -91,12 +91,19 @@ function FindDataItemsNotInTable(table, field, values)
   return items;
 end
 
-function TableLength(T)
-  local count = 0
-  for k,v in pairs(T) do 
-    count = count + 1; 
+function TableLength(table)
+  local count = 0;
+  for key in pairs(table) do
+    count = count + 1;
   end
   return count;
+end
+
+function TableHasValue(table)
+  for key in pairs(table) do
+    return true;
+  end
+  return false;
 end
 
 function SortByAppearanceChance(a,b)

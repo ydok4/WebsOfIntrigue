@@ -22,5 +22,11 @@ function webs_of_intrigue(isIDE)
   end
 
   TriggerDarkElfEventManagerStep();
+  TriggerDarkElfEventManagerStep();
+  TriggerDarkElfEventManagerStep();
+  TriggerDarkElfEventManagerStep();
+  TriggerDarkElfEventManagerStep();
+  TriggerDarkElfEventManagerStep();
+  TriggerDarkElfEventManagerStep();
   local test = "";
  end

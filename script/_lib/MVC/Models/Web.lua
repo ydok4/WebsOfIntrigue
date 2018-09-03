@@ -11,6 +11,8 @@
     ChildWebs = {},
     Districts = {},
     EventHistory = {},
+    ActiveEventChains = {},
+    CompletedEventChains = {},
   }
   
 function Web:new (o)
@@ -21,17 +23,32 @@ function Web:new (o)
 end
 
 
-function Web:GetFactionsWithType(type)
+function Web:GetFactionsWithTypes(types)
   local matchingFactions = {};
-  for key, district in pairs(self.Districts) do
-    for key, faction in pairs(district.ActiveFactions) do
-      if faction:HasType(type) then
-        matchingFactions[faction.UUID] = faction;
+  for key1, district in pairs(self.Districts) do
+    for key2, faction in pairs(district.ActiveFactions) do
+      for key3, type in pairs(types) do
+        if faction:HasType(type) then
+          matchingFactions[faction.UUID] = faction;
+          break;
+        end
       end
     end
   end
 
   return matchingFactions;
+end
+
+function Web:IsEventPartOfActiveEventChain(eventKey)
+  if self.ActiveEventChains[eventKey] then
+    return true;
+  end
+  return false;
+end
+
+function Web:CompleteEventChain(eventChainKey)
+  self.CompletedEventChains[#self.CompletedEventChains + 1] = ConvertEventChainToCompletedChain(self.ActiveEventChains[eventChainKey]);
+  self.ActiveEventChains[eventChainKey] = nil;
 end
 
 function Web:ApplyEventAndReturnResult(event, currentTurn)
@@ -67,13 +84,21 @@ end
 
 function Web:ApplyEventForCharacterScope(event, currentTurn, district, cachedData)
   for key1, character in pairs(district.Characters) do
-    character:ApplyEventAndReturnResult(event, currentTurn, cachedData);
+    local selectedResult = character:ApplyEventAndReturnResult(event, currentTurn, cachedData);
   end
 end
 
 
 function Web:ApplyEventResult(event, result, currentTurn)
   self:AddEventHistory(event.Key, result.Key, currentTurn);
+  if result.NextEvent.EventChainKey then
+    if self.ActiveEventChains[result.NextEvent.EventChainKey] then
+      self.ActiveEventChains[result.NextEvent.EventChainKey]:AddResultToEventChain(event, result, currentTurn);
+    else -- New event chain
+      local eventChain = GenerateEventChain(event, result, currentTurn, self);
+      self.ActiveEventChains[eventChain.Key] = eventChain;
+    end
+  end
 end
 
 function Web:AddEventHistory(eventKey, resultKey, currentTurn)
