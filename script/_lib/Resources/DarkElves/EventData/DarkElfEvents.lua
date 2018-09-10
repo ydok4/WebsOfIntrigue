@@ -1,13 +1,63 @@
 DarkElfEvents = {
+    ALuckyOccurrence = {
+        Key = "ALuckyOccurrence",
+        Scope = "Character",
+        Type = "Settlement",
+        Priority = 1,
+        ScopeLimits = {
+            Districts = 1,
+            Characters = 1,
+        },
+        NamePool = {"CHARACTERNAME has been blessed by RACEGOD",},
+        CanApplyEvent = function(web) return true; end,
+        CachedDataFunction = function(self, web, district, character)
+            return {};
+        end,
+        ResultPool = {
+            ALuckyOccurrenceDefault = {
+                Key = 'ALuckyOccurrenceDefault',
+                Scopes = {"Settlement", "District",},
+                Priority = 0,
+                CanApplyResult = function(object) return true; end,
+                ResultEffect = function(object) end,
+                NextEvent = {},
+            },
+            ALuckyOccurrenceMoney = {
+                Key = 'ALuckyOccurrenceMoney',
+                Scopes = {"Character",},
+                Priority = 1,
+                CanApplyResult = function(character) return true; end,
+                ResultEffect = function(character)  character:ChangePrimaryCharacteristic("Wealth", 10); end,
+                NextEvent = {},
+            },
+            ALuckyOccurrenceWeapon = {
+                Key = 'ALuckyOccurrenceWeapon',
+                Scopes = {"Character",},
+                Priority = 1,
+                CanApplyResult = function(character) return true; end,
+                ResultEffect = function(character)  character:ChangePrimaryCharacteristic("Strength", 10); end,
+                NextEvent = {},
+            },
+            ALuckyOccurrencePerson = {
+                Key = 'ALuckyOccurrencePerson',
+                Scopes = {"Character",},
+                Priority = 1,
+                CanApplyResult = function(object) return true; end,
+                ResultEffect = function(character)  character:ChangePrimaryCharacteristic("Influence", 10); end,
+                NextEvent = {},
+            },
+        },
+    },
     Drought = {
         Key = "Drought",
         Scope = "Settlement",
+        Type = "Settlement",
+        Priority = 0,
+        ScopeLimits = {},
         NamePool = {"SETTLEMENTNAME has unseasonally dry weather", "SETTLEMENTNAME is in drought"},
         CanApplyEvent = function(web) return AreValuesInList(web.Traits, {"FrozenClimate",}); end,
         CachedDataFunction = function(self, web, district, character)
-            return {
-                MatchingFactions = web:GetFactionsWithTypes({"Civilian", }),
-            }
+            return {};
         end,
         ResultPool = {
             DroughtDefault = {
@@ -49,6 +99,9 @@ DarkElfEvents = {
     ExtendedDrought = {
         Key = "ExtendedDrought",
         Scope = "Settlement",
+        Type = "Settlement",
+        Priority = 0,
+        ScopeLimits = {},
         NamePool = {"SETTLEMENTNAME has continued unseasonally dry weather", "SETTLEMENTNAME is in extended drought"},
         CanApplyEvent = function(web) return false; end,
         CachedDataFunction = function(self, web, district, character)
@@ -108,6 +161,9 @@ DarkElfEvents = {
     IceStorm = {
         Key = "IceStorm",
         Scope = "Settlement",
+        Type = "Settlement",
+        Priority = 0,
+        ScopeLimits = {},
         NamePool = {"SETTLEMENTNAME has unseasonally cold weather", "SETTLEMENTNAME is cold"},
         CanApplyEvent = function(web) return AreValuesInList(web.Traits, {"FrozenClimate",}); end,
         CachedDataFunction = function(self, web, district, character)

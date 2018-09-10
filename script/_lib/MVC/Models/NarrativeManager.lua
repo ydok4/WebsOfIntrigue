@@ -26,7 +26,7 @@ function NarrativeManager:TriggerEventsForWebs(topLevelWebs)
         -- Find and apply any valid narrative events
         self:FindAndApplyNarrativeEvents(web);
         -- Perform character actions
-
+        self:PerformCharacterActions(web);
         -- Find and apply any valid special narrative events
 
         -- Repeat for web children
@@ -34,22 +34,67 @@ function NarrativeManager:TriggerEventsForWebs(topLevelWebs)
     end
 end
 
-function NarrativeManager:FindAndApplyNarrativeEvents(object)
-    local validEvents = {};
-    for eventKey, event in pairs(self.EventResources) do
-        if event:IsThereResultForWebType(object.Type) and
-        self:HasEventOccurredRecently(eventKey, object) == false and
-        object:IsEventPartOfActiveEventChain(eventKey) == false and
-        event.CanApplyEvent(object) then
-            validEvents[#validEvents + 1] = event;
+function NarrativeManager:AdvanceEventChainsInWeb(web)
+    for key, eventChain in pairs(web.ActiveEventChains) do
+        if eventChain.NextEvent.TurnNumber == self.CurrentTurn then
+            local eventData = self.EventResources[eventChain.NextEvent.EventKey];
+            web:ApplyEventAndReturnResult(eventData, self.CurrentTurn);
+        elseif eventChain.NextEvent.TurnNumber < self.CurrentTurn then
+            web:CompleteEventChain(eventChain.Key);
+            Custom_Log("Remove event chain "..eventChain.Key);
         end
     end
-    if #validEvents == 0 then
+end
+
+function NarrativeManager:FindAndApplyNarrativeEvents(web)
+    local validWebEvents = self:FindNarrativeEventsForWeb(web);
+    if #validWebEvents == 0 then
         return;
     end
 
-    local randomEvent = GetRandomObjectFromList(validEvents);
-    local eventResult = object:ApplyEventAndReturnResult(randomEvent, self.CurrentTurn);
+    local randomEvent = GetRandomObjectFromList(validWebEvents);
+    local eventResult = web:ApplyEventAndReturnResult(randomEvent, self.CurrentTurn);
+end
+
+function NarrativeManager:FindNarrativeEventsForWeb(web)
+    local validEvents = {};
+    for eventKey, event in pairs(self.EventResources) do
+        if  event:IsEventForType(web.Type) and
+            self:HasEventOccurredRecently(eventKey, web) == false and
+            web:IsEventPartOfActiveEventChain(eventKey) == false and
+            event.CanApplyEvent(web) then
+                validEvents[#validEvents + 1] = event;
+        end
+        --[[elseif event:IsEventForScope("District") then
+            for key, district in pairs(web.District) do
+                if self:HasEventOccurredRecently(eventKey, district) == false and
+                    district:IsEventPartOfActiveEventChain(eventKey) == false and
+                    event.CanApplyEvent(web) then
+                        validEvents[#validEvents + 1] = event;
+                end
+            end
+        elseif event:IsEventForScope("Character") then
+            for key, district in pairs(web.District) do
+                for key, character in pairs(district.Characters) do
+                if self:HasEventOccurredRecently(eventKey, district) == false and
+                    character:IsEventPartOfActiveEventChain(eventKey) == false and
+                    event.CanApplyEvent(web) then
+                        validEvents[#validEvents + 1] = event;
+                end
+            end--]]
+    end
+    return validEvents;
+end
+
+function NarrativeManager:FindNarrativeEventsForDistricts(web)
+
+end
+
+function NarrativeManager:FindNarrativeEventsForCharacters(characters)
+
+end
+
+function NarrativeManager:PerformCharacterActions(web)
 
 end
 
@@ -64,18 +109,6 @@ function NarrativeManager:HasEventOccurredRecently(eventKey, web)
         end
     end
     return false;
-end
-
-function NarrativeManager:AdvanceEventChainsInWeb(web)
-    for key, eventChain in pairs(web.ActiveEventChains) do
-        if eventChain.NextEvent.TurnNumber == self.CurrentTurn then
-            local eventData = self.EventResources[eventChain.NextEvent.EventKey];
-            web:ApplyEventAndReturnResult(eventData, self.CurrentTurn);
-        elseif eventChain.NextEvent.TurnNumber < self.CurrentTurn then
-            web:CompleteEventChain(eventChain.Key);
-            Custom_Log("Remove event chain "..eventChain.Key);
-        end
-    end
 end
 
 function NarrativeManager:AdvanceEventChains()

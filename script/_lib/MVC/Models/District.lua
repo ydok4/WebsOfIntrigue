@@ -32,5 +32,5 @@ function District:ApplyEventResult(event, result, currentTurn)
 end
 
 function District:AddEventHistory(eventKey, resultKey, currentTurn)
-  self.EventHistory[#self.EventHistory + 1] = {eventKey, resultKey, currentTurn};
+  self.EventHistory[#self.EventHistory + 1] = {EventKey = eventKey, ResultKey = resultKey, TurnNumber = currentTurn};
 end

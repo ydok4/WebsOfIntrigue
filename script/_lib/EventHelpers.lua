@@ -17,7 +17,9 @@ function MapEventData(eventSchema)
     return Event:new({
         Key = eventSchema.Key,
         NamePool = eventSchema.NamePool,
-        Scope = eventSchema.Scope,
+        Type = eventSchema.Type,
+        Priority = eventSchema.Priority,
+        ScopeLimits = eventSchema.ScopeLimits,
         ResultPool = eventSchema.ResultPool,
         CanApplyEvent = eventSchema.CanApplyEvent,
         CachedDataFunction = eventSchema.CachedDataFunction,
@@ -50,7 +52,7 @@ function GenerateEventChain(event, result, currentTurn, object)
 
     return EventChain:new({
         Key = result.NextEvent.EventChainKey,
-        ObjectUUID = object.UUID,
+        Object = object,
         ElapsedEvents = {
             {EventKey = event.Key, ResultKey = result.Key, TurnNumber = currentTurn,}
         },

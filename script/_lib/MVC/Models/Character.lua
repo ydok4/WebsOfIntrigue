@@ -95,7 +95,7 @@ function Character:ApplyEventResult(event, result, currentTurn)
 end
 
 function Character:AddEventHistory(eventKey, resultKey, currentTurn)
-  self.EventHistory[#self.EventHistory + 1] = {eventKey, resultKey, currentTurn};
+  self.EventHistory[#self.EventHistory + 1] = {EventKey = eventKey, ResultKey = resultKey, TurnNumber = currentTurn};
 end
 
 function Character:ChangePrimaryCharacteristic(key, value)

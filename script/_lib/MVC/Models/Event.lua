@@ -3,7 +3,10 @@ require 'script/_lib/DataHelpers'
 Event = {
     Key = {},
     NamePool = {},
-    Scope = "",
+    -- Province or settlement
+    Type = "",
+    Priority = 0,
+    ScopeLimits = {},
     ResultPool = {},
     CanApplyEvent = {},
     CachedDataFunction = {},
@@ -16,9 +19,17 @@ function Event:new (o)
   return o;
 end
 
-function Event:IsThereResultForWebType(webType)
+function Event:IsEventForScope(scope)
+  return self.Scope == scope;
+end
+
+function Event:IsEventForType(type)
+  return self.Type == type;
+end
+
+function Event:IsThereResultForScope(scope)
   for key, result in pairs(self.ResultPool) do
-    if AreValuesInList(result.Scopes, {webType}) then
+    if AreValuesInList(result.Scopes, {scope}) then
       return true;
     end
   end

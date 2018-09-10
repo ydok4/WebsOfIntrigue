@@ -53,12 +53,26 @@ end
 
 function Web:ApplyEventAndReturnResult(event, currentTurn)
   if self.Type == "Province" then
-    self:ApplyEventForWebScope(event, currentTurn);
-    for key, web in pairs(self.ChildWebs) do
-      web:ApplyEventForWebScope(event, currentTurn);
+    local selectedEvent = self:ApplyEventForWebScope(event, currentTurn);
+    if event.ScopeLimits['Settlements'] and event.ScopeLimits['Settlements'] ~= 0 then
+      local selectedWebUUIDs = {};
+      for i = 1, event.ScopeLimits['Settlements'] do
+        local web = GetRandomObjectFromList(self.ChildWebs);
+        if selectedWebUUIDs[web.UUID] then
+          i = i - 1;
+        else
+          web:ApplyEventForWebScope(event, currentTurn);
+          selectedWebUUIDs[web.UUID] = 1;
+        end
+      end
+    else
+      for key, web in pairs(self.ChildWebs) do
+        web:ApplyEventForWebScope(event, currentTurn);
+      end
     end
+    return selectedEvent;
   else
-    self:ApplyEventForWebScope(event, currentTurn);
+    return self:ApplyEventForWebScope(event, currentTurn);
   end
 end
 
@@ -76,31 +90,63 @@ function Web:ApplyEventForWebScope(event, currentTurn)
 end
 
 function Web:ApplyEventForDistrictScope(event, currentTurn, cachedData)
-  for key1, district in pairs(self.Districts) do
-    district:ApplyEventAndReturnResult(event, currentTurn, cachedData);
-    self:ApplyEventForCharacterScope(event, currentTurn, district, cachedData);
+  if event.ScopeLimits['Districts'] and event.ScopeLimits['Districts'] ~= 0 then
+    local selectedDistrictUUIDs = {};
+    for i = 1, event.ScopeLimits['Districts'] do
+      local district = GetRandomObjectFromList(self.Districts);
+      if selectedDistrictUUIDs[district.UUID] then
+        i = i - 1;
+      else
+        district:ApplyEventAndReturnResult(event, currentTurn, cachedData);
+        selectedDistrictUUIDs[district.UUID] = 1;
+      end
+    end
+  else
+    for key1, district in pairs(self.Districts) do
+      local selectedResult = district:ApplyEventAndReturnResult(event, currentTurn, cachedData);
+      self:ApplyEventForCharacterScope(event, currentTurn, district, cachedData);
+      self:CheckAndAddEventChain(event, selectedResult, currentTurn, { Scope = "Districts", UUID = district.UUID });
+    end
   end
 end
 
 function Web:ApplyEventForCharacterScope(event, currentTurn, district, cachedData)
-  for key1, character in pairs(district.Characters) do
-    local selectedResult = character:ApplyEventAndReturnResult(event, currentTurn, cachedData);
+  if event.ScopeLimits['Characters'] and event.ScopeLimits['Characters'] ~= 0 then
+    local selectedCharacterUUIDs = {};
+    for i = 1, event.ScopeLimits['Characters'] do
+        local character = GetRandomObjectFromList(district.Characters);
+        if selectedCharacterUUIDs[character.UUID] then
+          i = i - 1;
+        else
+          character:ApplyEventAndReturnResult(event, currentTurn, cachedData);
+          selectedCharacterUUIDs[character.UUID] = 1;
+        end
+    end
+  else
+    for key1, character in pairs(district.Characters) do
+      local selectedResult = character:ApplyEventAndReturnResult(event, currentTurn, cachedData);
+      self:CheckAndAddEventChain(event, selectedResult, currentTurn, { Scope = "Characters", UUID = district.UUID });
+    end
   end
 end
 
 
 function Web:ApplyEventResult(event, result, currentTurn)
   self:AddEventHistory(event.Key, result.Key, currentTurn);
+  self:CheckAndAddEventChain(event, result, currentTurn, { Scope = Web.Type, UUID = self.UUID });
+end
+
+function Web:CheckAndAddEventChain(event, result, currentTurn, object)
   if result.NextEvent.EventChainKey then
     if self.ActiveEventChains[result.NextEvent.EventChainKey] then
       self.ActiveEventChains[result.NextEvent.EventChainKey]:AddResultToEventChain(event, result, currentTurn);
     else -- New event chain
-      local eventChain = GenerateEventChain(event, result, currentTurn, self);
+      local eventChain = GenerateEventChain(event, result, currentTurn, self, object);
       self.ActiveEventChains[eventChain.Key] = eventChain;
     end
   end
 end
 
 function Web:AddEventHistory(eventKey, resultKey, currentTurn)
-  self.EventHistory[#self.EventHistory + 1] = {eventKey, resultKey, currentTurn};
+  self.EventHistory[#self.EventHistory + 1] = {EventKey = eventKey, ResultKey = resultKey, TurnNumber = currentTurn};
 end

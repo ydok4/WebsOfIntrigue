@@ -2,7 +2,7 @@ require 'script/_lib/DataHelpers'
 
 EventChain = {
     Key = "",
-    ObjectUUID = "",
+    Object = "",
     ElapsedEvents = {
         {EventKey = "", ResultKey = "", TurnNumber = 0,}
     },
