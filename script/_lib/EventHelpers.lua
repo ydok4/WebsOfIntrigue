@@ -1,5 +1,3 @@
-require 'script/_lib/DataHelpers'
-
 require 'script/_lib/MVC/Models/Event'
 require 'script/_lib/MVC/Models/EventChain'
 

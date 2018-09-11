@@ -1,21 +1,28 @@
 District = {
-    UUID = "",
-    ParentWebUUID = "",
-    Name = "",
-    ParentName = "",
-    -- 1 to 5
-    Size = 0,
-    SupportedBackgrounds = {},
-    Characters = {},
-    ActiveFactions = {},
-    EventHistory = {},
-  }
-  
+  UUID = "",
+  ParentWebUUID = "",
+  Name = "",
+  SchemaKey = "",
+  ParentName = "",
+  -- 1 to 5
+  Size = 0,
+  SupportedBackgrounds = {},
+  Characters = {},
+  ActiveFactions = {},
+  EventHistory = {},
+}
+
 function District:new (o)
-  o = o or {}   -- create object if user does not provide one
-  setmetatable(o, self)
-  self.__index = self
-  return o
+  o = o or {};
+  setmetatable(o, self);
+  self.__index = self;
+  return o;
+end
+
+function District:AddCharacters(characterList)
+  for key, character in pairs(characterList) do
+    self.Characters[#self.Characters + 1] = character.UUID;
+  end
 end
 
 function District:ApplyEventAndReturnResult(event, currentTurn, cachedData)

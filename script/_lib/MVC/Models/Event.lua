@@ -1,5 +1,3 @@
-require 'script/_lib/DataHelpers'
-
 Event = {
     Key = {},
     NamePool = {},

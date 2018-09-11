@@ -1,18 +1,31 @@
 require 'script/_lib/DistrictHelper'
 
-function CreateWeb(RaceResources, webName, parentName, parentUUID)
+require 'script/_lib/MVC/Models/Web'
+
+local RaceResources = {};
+local createdWebs = {};
+
+function CreateWebsForRace(raceResources, rootName, rootUUID)
+  createdWebs = {};
+  RaceResources = raceResources;
+  local root = CreateWeb(rootName, rootUUID);
+  createdWebs[root.UUID] = root;
+  RaceResources = {};
+  return createdWebs;
+end
+
+function CreateWeb(webGameKey, webUUID, parentName, parentUUID)
   --  Find the web by name
-  local webSchema = RaceResources.Webs[webName];
-  
-  local uuid = "";
-  if webSchema.UUID then
-    uuid = webSchema.UUID;
-  else
-    uuid = GenerateUUID();
+  local webSchema = RaceResources.Webs[webGameKey];
+
+  local uuid = webUUID;
+  if uuid == nil then
+   uuid = GetWebUUIDByNameIfAvailable(webGameKey, webUUID);
   end
-  
+
   local web = Web:new({
     UUID = uuid,
+    GameKey = webGameKey,
     ParentUUID = parentUUID,
     Name = webSchema.Name,
     ParentName = parentName,
@@ -22,34 +35,52 @@ function CreateWeb(RaceResources, webName, parentName, parentUUID)
     SocialClassModifier = webSchema.SocialClassModifier,
     ChildWebs = {},
     Districts = webSchema.Districts,
-    ExtraFactions = webSchema.ExtraFactions,
+    --ExtraFactions = webSchema.ExtraFactions,
     Type = webSchema.Type,
     Traits = webSchema.Traits,
     EventHistory = {},
     ActiveEventChains = {},
     CompletedEventChains = {},
   });
-      
+
   if #webSchema.ChildWebs > 0 then
     local webChildren = {};
-    for key,value in pairs(webSchema.ChildWebs) do
-      local childWeb = CreateWeb(RaceResources, value, web.Name, web.UUID);
-      webChildren[#webChildren + 1] = childWeb;
+    for key, value in pairs(webSchema.ChildWebs) do
+      local childUUID = GetWebUUIDByNameIfAvailable(value, nil);
+      createdWebs[childUUID] = CreateWeb(value, childUUID, web.Name, web.UUID);
+      webChildren[#webChildren + 1] = childUUID;
     end
-    
+
     web.ChildWebs = webChildren;
   end
-  
+
   if #webSchema.Districts > 0 then
     local Districts = {};
-    for key,value in pairs(webSchema.Districts) do
+    for key, value in pairs(webSchema.Districts) do
       local district = CreateDistrict(RaceResources, value, web);
-      Districts[#Districts + 1] = district;
+      Districts[district.UUID] = district;
     end
     web.Districts = Districts;
   end
-  
+
   return web;
+end
+
+function GetWebUUIDByNameIfAvailable(webName, webUUID)
+  if #RaceResources == 0 then
+    return GenerateUUID();
+  end
+
+  --  Find the web by name
+  local webSchema = RaceResources.Webs[webName];
+  local uuid = webUUID;
+  if webSchema.UUID then
+    uuid = webSchema.UUID;
+  elseif webUUID == nil then
+    uuid = GenerateUUID();
+  end
+
+  return uuid;
 end
 
 function GetDataForType(webType, webData, webUUID)
@@ -58,7 +89,7 @@ function GetDataForType(webType, webData, webUUID)
     return {};
   end
   data = {};
-  
+
   if webType == "District" then
     Custom_Log("Grabbing districts");
     data = GetDistrictsForWeb(webUUID, webData);
@@ -85,7 +116,7 @@ function GetWebByUUID(webUUID, webData)
       break;
     end
   end
-  
+
   return foundWeb;
 end
 
@@ -112,14 +143,14 @@ function SearchDistricts(webUUID, web)
     if internalWeb.UUID == webUUID then
       return internalWeb;
     end
-    
+
     foundWeb = SearchDistricts(webUUID, internalWeb);
     if foundWeb then
       return foundWeb;
     end
   end
 end
-    
+
 
 function GetDistrictsForWeb(webUUID, webData)
   local foundWeb = GetWebByUUID(webUUID, webData);
@@ -131,7 +162,7 @@ function GetDistrictsFromWeb(web)
   for key, internalWeb in pairs(web.Districts) do
     Districts[#Districts + 1] = internalWeb;
   end
-  
+
   return Districts;
 end
 
@@ -145,13 +176,13 @@ function GetCharactersFromInternalWeb(web)
   for key, character in pairs(web.Characters) do
     characters[#characters + 1] = character;
   end
-  
+
   return characters;
 end
 
 function GetWebByType(webData, webType)
   local webs = {};
-  
+
   for key, web in pairs(webData) do
     if web.Type == webType then
       webs[#webs + 1] = web;
@@ -185,7 +216,7 @@ function GetNextWebType(currentWebType, webHierarchy)
         nextLevels[#nextLevels] = value.Type;
       end
     end
-    
+
     return nextLevels;
   end
 end

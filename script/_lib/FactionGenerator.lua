@@ -1,15 +1,23 @@
 require 'script/_lib/MVC/Models/Faction'
 require 'script/_lib/MVC/Models/Rank'
 
-require 'script/_lib/DataHelpers'
+local RaceResources = {};
 
-function GenerateFactionForDistrict(RaceResources, district, factionTemplateSchema, factionTemplateType, webName)
-    local nameOverrideObject = GenerateNameOverrideObject(RaceResources, factionTemplateSchema);
+function InitialiseFactionGeneratorForRace(raceResources)
+    RaceResources = raceResources;
+end
+
+function ClearRaceResourcesForFactionGenerator()
+    RaceResources = {};
+end
+
+function GenerateFactionForDistrict(district, factionTemplateSchema, factionTemplateType, webName)
+    local nameOverrideObject = GenerateNameOverrideObject(factionTemplateSchema);
     return Faction:new({
         UUID = GenerateUUID(),
         ParentWebUUID = district.UUID,
         TemplateType = factionTemplateType,
-        Name = GenerateFactionName(RaceResources, factionTemplateSchema, webName, nameOverrideObject),
+        Name = GenerateFactionName(factionTemplateSchema, webName, nameOverrideObject),
         GrantedNameOverride = nameOverrideObject,
         ParentName = district.Name,
         Ranks = GenerateFactionRanks(factionTemplateSchema),
@@ -23,14 +31,14 @@ function GenerateFactionForDistrict(RaceResources, district, factionTemplateSche
     });
 end
 
-function GenerateSpecialFactionForDistrict(RaceResources, district, specialFaction)
+function GenerateSpecialFactionForDistrict(district, specialFaction)
     local specialFactionSchema =  RaceResources.SpecialFactions[specialFaction];
 
     return Faction:new({
         UUID = GenerateUUID(),
         ParentWebUUID = district.UUID,
         Name = specialFactionSchema.Name,
-        GrantedNameOverride = GenerateNameOverrideObject(factionTemplateSchema),
+        GrantedNameOverride = GenerateNameOverrideObject(specialFactionSchema),
         ParentName = district.Name,
         Ranks = GenerateFactionRanks(specialFactionSchema),
         SupportedBackgrounds = specialFactionSchema.SupportedBackgrounds,
@@ -43,13 +51,13 @@ function GenerateSpecialFactionForDistrict(RaceResources, district, specialFacti
     });
 end
 
-function GenerateFactionName(RaceResources, factionTemplate, webName, nameOverrideObject)
+function GenerateFactionName(factionTemplate, webName, nameOverrideObject)
     local name = factionTemplate.NamePool[Random(#factionTemplate.NamePool)];
 
     if string.match(name, "WEBNAME") then
         name = name:gsub("WEBNAME", webName);
     end
-    
+
     if string.match(name, "SURNAME") then
         local surname = "";
         if nameOverrideObject.Surname then
@@ -60,12 +68,12 @@ function GenerateFactionName(RaceResources, factionTemplate, webName, nameOverri
         name = name:gsub("SURNAME", surname);
     end
 
-    name = ReplaceNamePoolDataByKeyword(RaceResources, name);
+    name = ReplaceNamePoolDataByKeyword(name);
 
     return name;
 end
 
-function GenerateNameOverrideObject(RaceResources, factionTemplate)
+function GenerateNameOverrideObject(factionTemplate)
     if factionTemplate.GrantedNameOverride then
         local firstName = factionTemplate.GrantedNameOverride.FirstName;
         local surname = factionTemplate.GrantedNameOverride.Surname;
@@ -91,8 +99,8 @@ function GenerateNameOverrideObject(RaceResources, factionTemplate)
     end
 end
 
-function ReplaceNamePoolDataByKeyword(raceResources, name)
-    for key, namePool in pairs(raceResources.FactionNamePools) do
+function ReplaceNamePoolDataByKeyword(name)
+    for key, namePool in pairs(RaceResources.FactionNamePools) do
         if string.match(name, key) then
             local randomNameFromPool = namePool[Random(#namePool)];
             name = name:gsub(key, randomNameFromPool);
@@ -134,7 +142,7 @@ function GenerateFactionTraits(factionTemplate)
             selectedTraits[#selectedTraits + 1] = trait;
         end
     end
-    
+
     return selectedTraits;
 end
 

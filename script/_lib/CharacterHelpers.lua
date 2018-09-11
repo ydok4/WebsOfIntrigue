@@ -1,4 +1,3 @@
-require 'script/_lib/DataHelpers'
 require 'script/_lib/CharacterGenerator'
 
 require 'script/_lib/MVC/Models/Character'
@@ -21,7 +20,19 @@ local RaceFactionTemplates = {};
 local RaceSpecialCharactersForWeb = {};
 
 
-function InitialiseRaceData(raceResources, webName)
+function CreateCharactersForRace(raceResources, raceIdentifier)
+  InitialiseRaceData(raceResources);
+  local raceRootWeb = WebsOfIntrigue:GetRootWebForRace(raceIdentifier);
+  for key, webUUID in pairs(raceRootWeb.ChildWebs) do
+      local web = WebsOfIntrigue:GetWebByUUID(webUUID);
+      CreateCharactersForWeb(web);
+  end
+end
+
+function InitialiseRaceData(raceResources)
+  if raceResources == nil then
+    return;
+  end
   RaceCharacterSettings = raceResources.CharacterSettings;
   RaceNames = raceResources.Names;
   RaceTitles = raceResources.Titles;
@@ -38,20 +49,32 @@ function InitialiseRaceData(raceResources, webName)
   RaceFactionTemplates = raceResources.FactionTemplates;
 end
 
-function CreateCharactersForDistrict(RaceResources, district) 
-  
-  InitialiseRaceData(RaceResources, district.Name);
-  --local numberOfCharacters = GetRandomNumberOfCharactersFromPopulation(web["Population"]);
-  
-  local characters = {};
-
-  for key, faction in pairs(district.ActiveFactions) do
-    GenerateCharactersForFaction(characters, district.ActiveFactions, district, faction);
+function CreateCharactersForWeb(web)
+  if web.ChildWebs and #web.ChildWebs > 0 then
+    for key, webUUID in pairs(web.ChildWebs) do
+      local childWeb = WebsOfIntrigue:GetWebByUUID(webUUID);
+      CreateCharactersForWeb(childWeb);
+    end
   end
 
-  --UpdateFactionMembershipsForCharacters(characters, district.ActiveFactions);
-  
-  --[[local genericCharacterPopulationLimit = numberOfCharacters - #characters;
+  if web.Districts then
+    for key2, district in pairs(web.Districts) do
+      CreateCharactersForDistrict(district);
+    end
+  end
+end
+
+function CreateCharactersForDistrict(district)
+  for key, factionUUID in pairs(district.ActiveFactions) do
+    local faction = WebsOfIntrigue:GetFactionByUUID(factionUUID);
+    local factionCharacters = GenerateCharactersForFaction(district, faction);
+    district:AddCharacters(factionCharacters);
+    WebsOfIntrigue:AddCharacters(factionCharacters);
+  end
+
+  --[[
+  local numberOfCharacters = GetRandomNumberOfCharactersFromPopulation(web["Population"]);  
+  local genericCharacterPopulationLimit = numberOfCharacters - #characters;
   -- Generate a number of characters based on the web size
   for i = 0, genericCharacterPopulationLimit do
     characters[#characters + 1] = GenerateCharacter(web);
@@ -65,18 +88,10 @@ function CreateCharactersForDistrict(RaceResources, district)
     end
     
   end--]]
-  
-  return characters;
 end
 
-function GetRandomNumberOfCharactersFromPopulation(population)
-  local maxNumberOfCharacters = population * 20;
-  local minNumberOfCharacters = maxNumberOfCharacters - 0.25 * maxNumberOfCharacters;
-  return RandomRange(minNumberOfCharacters, maxNumberOfCharacters);
-end
-
-function GenerateCharactersForFaction(charactersList, factionList, district, factionData)
-
+function GenerateCharactersForFaction(district, factionData)
+  local factionCharacters = {};
   -- Generate a number of characters for each rank
   for key, rank in pairs(factionData.Ranks) do
     local numberOfChars = 0;
@@ -87,21 +102,22 @@ function GenerateCharactersForFaction(charactersList, factionList, district, fac
         numberOfChars = rank.Limit;
       end
     end
-    
+
     for i = 1, numberOfChars do
-      local character = {};
       local character = GenerateCharacterForFactionRank(factionData, rank, district);
       factionData:SetCharacterAsRank(character, rank);
 
       if rank.AdditionalMemberships then
         -- This will add any additional factions for this rank and recursively for all subsequent ranks
-        AddAdditionalFactionMembership(character, rank, factionList);
+        AddAdditionalFactionMembership(character, rank, district.ActiveFactions);
       end
 
-      charactersList[#charactersList + 1] = character;
+      factionCharacters[character.UUID] = character;
+      district.Characters[#district.Characters + 1] = character.UUID;
     end
   end
-  
+
+  return factionCharacters;
 end
 
 
@@ -145,7 +161,8 @@ function AddAdditionalFactionMembership(character, rank, factionList)
 end
 
 function FindFactionWithVacantRank(factionList, rank)
-  for key, faction in pairs(factionList) do
+  for index, factionUUID in pairs(factionList) do
+    local faction = WebsOfIntrigue:GetFactionByUUID(factionUUID);
     if faction:IsRankPositionAvailable(rank) then
       return faction;
     end
@@ -181,11 +198,11 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
       careerObjects[#careerObjects + 1] = RaceCareers[career];
     end
   end
-  
+
   for key, career in pairs(careerObjects) do
     careerNames[#careerNames + 1] = career.Name;
   end
-  
+
   local factionMemberships = {}
   factionMemberships[factionData.UUID] = GenerateMembershipForFaction(factionData, rank);
   local background = GetValidBackgroundFromCareers(RaceBackgrounds, RaceCareers, careerObjects).Name;
@@ -196,7 +213,7 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
   careers[#careers + 1] = GenerateCareer(RaceCareers, careerNames, background, socialClass);
 
   local race = GetRace(socialClass);
-  
+
   local gender = "";
   if #rank.Gender > 0 then
     gender = rank.Gender;
@@ -205,16 +222,14 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
   end
 
   local name = GenerateFullNameObject(RaceNames, gender, RaceCharacterSettings.NameSettings);
-      
+
   local character = Character:new({
       UUID = GenerateUUID(),
       Name = name,
       Gender = gender,
       Memberships = factionMemberships,
-      
       Race = race,
       SocialClass = socialClass.Name,
-      
       Background = background,
       Careers = careers,
 
@@ -231,28 +246,23 @@ end
 
 function GenerateCharacter(web)
 
-  
   local socialClass = GenerateSocialClass(RaceSocialClasses, web.SocialClassModifier);
-    
   local race = GetRace(socialClass);
-  
   local background = GenerateBackground(RaceBackgrounds, web.SupportedBackgrounds, socialClass);
-  
   background = background.Name;
-  
-  
+
+
   local careerObjects = {};
   local careerNames = {};
   careerObjects[#careerObjects + 1] = GenerateCareer(RaceCareers, web.ExtraCareers, background, socialClass);
-  
+
   for key, career in pairs(careerObjects) do
     careerNames[#careerNames + 1] = career.Name;
   end
-  
+
   local gender = GenerateGender(false, careerObjects, CharacterSettings.MaleGenderChance);
   local name = GenerateFullNameObject(RaceNames, gender, RaceCharacterSettings.NameSettings);
-  
-  
+
   local character = Character:new({
       UUID = GenerateUUID(),
       Name = name,
@@ -272,4 +282,10 @@ end
 
 function GenerateSpecialCharacter(character)
   
+end
+
+function GetRandomNumberOfCharactersFromPopulation(population)
+  local maxNumberOfCharacters = population * 20;
+  local minNumberOfCharacters = maxNumberOfCharacters - 0.25 * maxNumberOfCharacters;
+  return RandomRange(minNumberOfCharacters, maxNumberOfCharacters);
 end

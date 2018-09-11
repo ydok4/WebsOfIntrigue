@@ -3,8 +3,6 @@ require 'script/_lib/MVC/Models/Career'
 require 'script/_lib/MVC/Models/Membership'
 require 'script/_lib/MVC/Models/Trait'
 
-require 'script/_lib/DataHelpers'
-
 function GenerateGender(isSexless, careers, maleGenderChance)
   if isSexless and isSexless == true then
     return "Sexless";

@@ -1,5 +1,3 @@
-require 'script/_lib/DataHelpers'
-
 NarrativeManager = {
     CurrentTurn = 0,
     SpecialEventResources = {},
@@ -14,24 +12,30 @@ function NarrativeManager:new (o)
   return o;
 end
 
-function NarrativeManager:StartTriggerEvents(topLevelWebs)
-    self:TriggerEventsForWebs(topLevelWebs)
+function NarrativeManager:StartTriggerEvents(raceIdentifier)
+    local raceRootWeb = WebsOfIntrigue:GetRootWebForRace(raceIdentifier);
+    for webKey, webUUID in pairs(raceRootWeb.ChildWebs) do
+        local web = WebsOfIntrigue:GetWebByUUID(webUUID);
+        self:TriggerEventsForWeb(web)
+    end
     self.CurrentTurn = self.CurrentTurn + 1;
 end
 
-function NarrativeManager:TriggerEventsForWebs(topLevelWebs)
-    for key, web in pairs(topLevelWebs) do
-        -- Check any active event chains need to advanced
-        self:AdvanceEventChainsInWeb(web);
-        -- Find and apply any valid narrative events
-        self:FindAndApplyNarrativeEvents(web);
-        -- Perform character actions
-        self:PerformCharacterActions(web);
-        -- Find and apply any valid special narrative events
-
-        -- Repeat for web children
-        self:TriggerEventsForWebs(web.ChildWebs);
+function NarrativeManager:TriggerEventsForWeb(web)
+    if web.ChildWebs then
+        for index, webUUID in pairs(web.ChildWebs) do
+            local childWeb = WebsOfIntrigue:GetWebByUUID(webUUID);
+            self:TriggerEventsForWeb(childWeb);
+        end
     end
+    -- Check any active event chains need to advanced
+    self:AdvanceEventChainsInWeb(web);
+    -- Find and apply any valid narrative events
+    self:FindAndApplyNarrativeEvents(web);
+    -- Perform character actions
+    self:PerformCharacterActions(web);
+    -- Find and apply any valid special narrative events
+    
 end
 
 function NarrativeManager:AdvanceEventChainsInWeb(web)

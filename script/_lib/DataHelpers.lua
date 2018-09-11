@@ -112,7 +112,14 @@ function TableConcat(table1, table2)
   return table1;
 end
 
-function SortByAppearanceChance(a,b)
+function TableConcatByKeyWithUUID(table1, table2)
+  for key, value in  pairs(table2) do
+    table1[value.UUID] = value;
+  end
+  return table1;
+end
+
+function SortByAppearanceChance(a, b)
   return a.AppearanceChance < b.AppearanceChance
 end
 
