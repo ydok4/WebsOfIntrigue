@@ -26,7 +26,7 @@ DarkElfSpecialFactions = {
         },
       },
     },
-    
+
     BlackGuardFaction = {
       Name = "The Black Guard",
       District = "BlackGuardTowers",

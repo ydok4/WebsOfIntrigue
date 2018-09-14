@@ -22,30 +22,6 @@ function Controller:new (o)
   return o;
 end
 
--- Resource Files
-
---[[require 'script/_lib/Resources/DarkElves/WebData/SpecialCharacters/DarkElfSpecialCharacters'
-require 'script/_lib/Resources/DarkElves/WebData/Religions/DarkElfReligions'
-require 'script/_lib/Resources/DarkElves/WebData/Factions/DarkElfSpecialFactions'
-require 'script/_lib/Resources/DarkElves/WebData/Factions/DarkElfFactionTemplates'
-require 'script/_lib/Resources/DarkElves/WebData/Factions/DarkElfFactionNamePools'
-require 'script/_lib/Resources/DarkElves/WebData/Webs/DarkElfWebs'
-require 'script/_lib/Resources/DarkElves/WebData/Webs/DarkElfSpecialDistricts'
-require 'script/_lib/Resources/DarkElves/WebData/Webs/DarkElfDistricts'
-
-require 'script/_lib/Resources/DarkElves/CharacterData/CharacterSettings/DarkElfCharacterSettings'
-require 'script/_lib/Resources/DarkElves/CharacterData/Names/DarkElfNames'
-require 'script/_lib/Resources/DarkElves/CharacterData/Archetypes/DarkElfArchetypes'
-require 'script/_lib/Resources/DarkElves/CharacterData/Titles/DarkElfTitles'
-require 'script/_lib/Resources/DarkElves/CharacterData/SocialClasses/DarkElfSocialClasses'
-require 'script/_lib/Resources/DarkElves/CharacterData/Traits/DarkElfTraits'
-require 'script/_lib/Resources/DarkElves/CharacterData/Actions/DarkElfActions'
-require 'script/_lib/Resources/DarkElves/CharacterData/Backgrounds/DarkElfBackgrounds'
-require 'script/_lib/Resources/DarkElves/CharacterData/Natures/DarkElfNatures'
-require 'script/_lib/Resources/DarkElves/CharacterData/Careers/DarkElfCareers'
-
-require 'script/_lib/Resources/DarkElves/EventData/DarkElfEvents'--]]
-
 function Controller:InitialiseController()
   self:LoadRaceNamespaces();
   self:InitialiseResources(self.RaceIdentifier);

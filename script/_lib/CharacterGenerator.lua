@@ -137,7 +137,7 @@ function GenerateCareerFromData(careerData)
     Name = careerData.Name,
     Archetype = careerData.Archetype,
     CareerLevel = careerData.CareerLevel,
-
+    SchemaKey = careerData.Key,
     Actions = careerData.Actions,
     Traits = careerData.Traits,
     ExitCareers = careerData.ExitCareers,
@@ -166,24 +166,23 @@ end
 
 function GetValidSocialClassFromCareers(raceSocialClasses, careers)
   local validSocialClasses = {};
-  
   for key,career in pairs(careers) do
     for key,socialClass in pairs(career.SocialClasses) do
         validSocialClasses[#validSocialClasses + 1] = FindFirstDataInTable(raceSocialClasses, "Name", {socialClass});
     end
   end
-    
+
   return validSocialClasses[Random(#validSocialClasses)];
 end
 
-function GenerateMembershipForFaction(factionData, rank)
-  local membershipTraits = GenerateMembershipTraits(factionData, rank);
+function GenerateMembershipForFaction(factionData, rankData)
+  local membershipTraits = GenerateMembershipTraits(factionData, rankData);
   return Membership:new({
     FactionName = factionData.Name,
     FactionUUID = factionData.UUID,
-    Rank = rank.Name,
-    OrdinalRank = rank.Ordinal,
-    IsKnownMember = Roll100(rank.StealthValue),
+    Rank = rankData.Name,
+    OrdinalRank = rankData.Ordinal,
+    IsKnownMember = Roll100(rankData.StealthValue),
     Traits = membershipTraits,
   });
 end

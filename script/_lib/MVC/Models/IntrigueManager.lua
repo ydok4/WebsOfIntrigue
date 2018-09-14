@@ -2,6 +2,7 @@
 require 'script/_lib/MVC/Models/Controller'
 
 IntrigueManager = {
+  CurrentTurn = 0,
   -- Global data pools
   Webs = {},
   Characters = {},
@@ -15,6 +16,10 @@ function IntrigueManager:new (o)
   setmetatable(o, self);
   self.__index = self;
   return o;
+end
+
+function IntrigueManager:InitialiseShared()
+
 end
 
 function IntrigueManager:InitialiseDarkElves()
@@ -61,4 +66,17 @@ function IntrigueManager:TriggerEventManagersStep()
   for key, controller in pairs(self.Controllers) do
     controller:TriggerEventManagerStep();
   end
+end
+
+function IntrigueManager:CharacterJoinsFaction(character, faction, rank)
+  local factionMembers = self.Factions[faction.UUID].MemberCharacters;
+  factionMembers[#factionMembers + 1] = character.UUID;
+  character:AddFactionMembership(faction, rank);
+  faction:SetCharacterAsRank(character, rank);
+  local event = self:GetSharedEventByKey('CharacterJoinsFaction');
+  character:ApplyEventAndReturnResult(event, self.CurrentTurn, nil);
+end
+
+function IntrigueManager:GetSharedEventByKey(key)
+  return self.Controllers['Shared'].EventResources[key];
 end

@@ -4,7 +4,7 @@
     Gender = "",
     -- List of Membership Objects
     Memberships = {},
-    
+
     Background = "",
     Race = "",
     -- SocialClass object
@@ -12,25 +12,25 @@
     -- List of Career string identifiers
     Careers = {},
     Nature = "",
-    
+
     Strength = 0,
     Influence = 0,
     Wealth = 0,
     Stealth = 0,
-    
+
     -- List of Trait string identifiers
     Traits = {},
     -- List of Action string identifiers
     Actions = {},
     -- List of Goal string identifiers
     Goals = {},
-    
+
     -- List of History objects
     History = {},
     -- List of History objects
     PlayerKnownHistory = {},
     EventHistory = {},
-    
+
     -- Loyalty Object
     LoyaltyRaceLeader = {},
     -- Loyalty Object
@@ -38,7 +38,7 @@
     -- List of loyalty objects
     LoyaltyOtherCharacters = {},
 }
-  
+
 function Character:new (o)
     o = o or {}   -- create object if user does not provide one
     setmetatable(o, self)
@@ -51,13 +51,19 @@ function Character:GetCharacterName()
 end
 
 function Character:HasFactionMembership(factionUUID)
-  for key1, membership in pairs(self.Memberships) do
-    if membership.FactionUUID == factionUUID then
-      return true;
-    end
+  if self.Memberships[factionUUID] then
+    return true;
+  else
+    return false;
   end
+end
 
-  return false;
+function Character:AddFactionMembership(faction, rank)
+  if self.Memberships[faction.UUID] then
+    return nil;
+  else
+    return GenerateMembershipForFaction(faction, rank);
+  end
 end
 
 function Character:SetName(nameObject)
@@ -100,4 +106,12 @@ end
 
 function Character:ChangePrimaryCharacteristic(key, value)
   self[key] = self[key] + value;
+end
+
+function Character:HasCareer(careerKey)
+  for key1, career in pairs(self.Careers) do
+    if career.SchemaKey == careerKey then
+      return true;
+    end
+  end
 end

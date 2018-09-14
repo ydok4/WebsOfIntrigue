@@ -15,6 +15,7 @@ function GenerateFactionForDistrict(district, factionTemplateSchema, factionTemp
     local nameOverrideObject = GenerateNameOverrideObject(factionTemplateSchema);
     return Faction:new({
         UUID = GenerateUUID(),
+        -- SchemaKey = factionTemplateSchema.Key,
         ParentWebUUID = district.UUID,
         TemplateType = factionTemplateType,
         Name = GenerateFactionName(factionTemplateSchema, webName, nameOverrideObject),
@@ -36,6 +37,7 @@ function GenerateSpecialFactionForDistrict(district, specialFaction)
 
     return Faction:new({
         UUID = GenerateUUID(),
+        -- SchemaKey = specialFactionSchema.Key,
         ParentWebUUID = district.UUID,
         Name = specialFactionSchema.Name,
         GrantedNameOverride = GenerateNameOverrideObject(specialFactionSchema),
@@ -45,7 +47,7 @@ function GenerateSpecialFactionForDistrict(district, specialFaction)
         SocialClassModifier = specialFactionSchema.SocialClassModifier,
         MemberCharacters = {},
         Traits = GenerateFactionTraits(specialFactionSchema),
-        Types = factionTemplateSchema.Types,
+        Types = specialFactionSchema.Types,
         Goals =  GenerateFactionGoals(specialFactionSchema),
         Actions = GenerateFactionActions(specialFactionSchema),
     });

@@ -1,8 +1,8 @@
 DarkElfFactionTemplates = {
-
         SlaversFaction = {
         NamePool = {"The Slave Traders", },
         PregeneratedAmount = 1,
+        Key = "SlaversFaction",
         Types = {},
         Ranks = {
           {
@@ -31,11 +31,12 @@ DarkElfFactionTemplates = {
           },
         },
       },
-      
+
       MajorCityGovernmentFaction = {
         NamePool = {"Rulers of WEBNAME", },
         PregeneratedAmount = 1,
         RelatedDistrict = "NobleDistrict",
+        Key = "MajorCityGovernmentFaction",
         Types = {},
         Ranks = {
           {
@@ -79,10 +80,10 @@ DarkElfFactionTemplates = {
         },
       },
 
-      
       NobilityFaction = {
         NamePool = {"Noble Families of WEBNAME", "Noble Houses of WEBNAME", },
         PregeneratedAmount = 1,
+        Key = "NobilityFaction",
         Types = {},
         Ranks = {
           {
@@ -152,6 +153,7 @@ DarkElfFactionTemplates = {
         NamePool = {"The SURNAMEs of WEBNAME", "The SURNAMEs", "The house of SURNAME",
         "The ADJECTIVE NOUNs of house SURNAME", "House SURNAME", },
         PregeneratedAmount = 11,
+        Key = "NobleFamilyFaction",
         Types = {},
         GrantedNameOverride = {
           TitlePrefix = nil,
@@ -230,10 +232,11 @@ DarkElfFactionTemplates = {
         },
         Traits = {},
       },
-      
+
       GuildFactions = {
         NamePool = {"The GUILDTYPEs Guild",},
         PregeneratedAmount = 3,
+        Key = "GuildFactions",
         Types = {},
         Ranks = {
           {
@@ -266,11 +269,12 @@ DarkElfFactionTemplates = {
         },
         Traits = {},
       },
-      
+
       BarracksFaction = {
         NamePool = {"The Barracks Faction", },
         PregeneratedAmount = 1,
-        Types = {"Military", },
+        Key = "BarracksFaction",
+        Types = {"Military"},
         Ranks = {
           {
             Name = "Lordling",
@@ -311,10 +315,11 @@ DarkElfFactionTemplates = {
         },
         Traits = {},
       },
-      
+
       HarbourFaction = {
         NamePool = {"The Harbour Faction", },
         PregeneratedAmount = 1,
+        Key = "HarbourFaction",
         Types = {},
         Ranks = {
           {

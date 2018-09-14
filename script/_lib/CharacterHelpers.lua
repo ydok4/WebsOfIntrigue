@@ -188,7 +188,7 @@ function GenerateCharacterForFactionRank(factionData, rank, district)
   local careerIDs = {};
   local careerObjects = {};
   local careerNames = {};
-  
+
   for key, career in pairs(rank.Careers) do
     if rank.Gender and career.Gender then
       if AreValuesInList(career.Gender, {rank.Gender}) then

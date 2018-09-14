@@ -13,13 +13,15 @@ function webs_of_intrigue(isIDE)
   Custom_Log("Webs of Intrigue START");
   -- Create the main Webs Of Intrigue Manager object
   WebsOfIntrigue = IntrigueManager:new({
+    CurrentTurn = 0,
     Webs = {},
     Characters = {},
     Factions = {},
     Controllers = {},
   });
 
-  -- Start initialising races
+  -- Start initialising
+  WebsOfIntrigue:InitialiseShared();
   WebsOfIntrigue:InitialiseDarkElves();
 
 	Custom_Log("Webs of Intrigue Initialisation completed");

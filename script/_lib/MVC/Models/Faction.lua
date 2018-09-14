@@ -1,5 +1,6 @@
 Faction = {
   UUID = "",
+  -- SchemaKey = "",
   ParentWebUUID = "",
   Name = "",
   -- Name Object
@@ -15,7 +16,7 @@ Faction = {
   Goals = {},
   Actions = {},
 }
-  
+
 function Faction:new (o)
   o = o or {}   -- create object if user does not provide one
   setmetatable(o, self)
@@ -55,4 +56,8 @@ function Faction:GetCharacterRank(character)
     end
   end
   return nil;
+end
+
+function Faction:GetOrdinalRank(ordinalRankValue, gender)
+  --self.Ranks
 end

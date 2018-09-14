@@ -1,5 +1,4 @@
 NarrativeManager = {
-    CurrentTurn = 0,
     SpecialEventResources = {},
     EventResources = {},
     GlobalActiveEventChains = {},
@@ -18,7 +17,7 @@ function NarrativeManager:StartTriggerEvents(raceIdentifier)
         local web = WebsOfIntrigue:GetWebByUUID(webUUID);
         self:TriggerEventsForWeb(web)
     end
-    self.CurrentTurn = self.CurrentTurn + 1;
+    IntrigueManager.CurrentTurn = IntrigueManager.CurrentTurn + 1;
 end
 
 function NarrativeManager:TriggerEventsForWeb(web)
@@ -40,10 +39,10 @@ end
 
 function NarrativeManager:AdvanceEventChainsInWeb(web)
     for key, eventChain in pairs(web.ActiveEventChains) do
-        if eventChain.NextEvent.TurnNumber == self.CurrentTurn then
+        if eventChain.NextEvent.TurnNumber == IntrigueManager.CurrentTurn then
             local eventData = self.EventResources[eventChain.NextEvent.EventKey];
-            web:ApplyEventAndReturnResult(eventData, self.CurrentTurn);
-        elseif eventChain.NextEvent.TurnNumber < self.CurrentTurn then
+            web:ApplyEventAndReturnResult(eventData, IntrigueManager.CurrentTurn);
+        elseif eventChain.NextEvent.TurnNumber < IntrigueManager.CurrentTurn then
             web:CompleteEventChain(eventChain.Key);
             Custom_Log("Remove event chain "..eventChain.Key);
         end
@@ -99,13 +98,19 @@ function NarrativeManager:FindNarrativeEventsForCharacters(characters)
 end
 
 function NarrativeManager:PerformCharacterActions(web)
-
+    for characterKey, character in pairs(self.Characters) do
+        for goalKey, goal in pairs(character.Goals) do
+            local validActions = goal:GetMatchingActions(character.Actions);
+            local selectedAction = GetRandomObjectFromList(validActions);;
+            character:PerformAction(selectedAction);
+        end
+    end
 end
 
 function NarrativeManager:HasEventOccurredRecently(eventKey, web)
     for key, history in pairs(web.EventHistory) do
         if history.EventKey == eventKey then
-            if self.CurrentTurn > history.TurnNumber + 20 then
+            if IntrigueManager.CurrentTurn > history.TurnNumber + 20 then
                 return false;
             else
                 return true;
