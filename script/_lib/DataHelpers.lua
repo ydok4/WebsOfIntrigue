@@ -1,10 +1,10 @@
 
 function Random(limit)
-  return math.random(limit) ; 
+  return math.random(limit) ;
 end
 
 function RandomRange(min, max)
-  return math.random(min, max) ; 
+  return math.random(min, max) ;
 end
 
 function FindFirstDataInTable(table, field, values)
@@ -15,19 +15,19 @@ function FindFirstDataInTable(table, field, values)
       end
     end
   end
-  
+
   return nil;
 end
 
 function FindDataItemsInTableByKey(table, values)
   local items = {};
-  
+
   for key2,value in pairs(values) do
     if table[value] then 
       items[#items + 1] = table[value];
     end
   end
-  
+
   if #items == 0 then
     return nil;
   end
@@ -36,7 +36,7 @@ end
 
 function FindDataItemsInTable(table, field, values)
   local items = {};
-  
+
   for key1,tableItem in pairs(table) do 
     for key2,value in pairs(values) do
       if tableItem[field] then 

@@ -1,3 +1,5 @@
+woi = _G.woi;
+
 -- Helper classes
 require 'script/_lib/WebHelpers'
 require 'script/_lib/EventHelpers'
@@ -23,67 +25,37 @@ function Controller:new (o)
 end
 
 function Controller:InitialiseController()
-  self:LoadRaceNamespaces();
-  self:InitialiseResources(self.RaceIdentifier);
+  self:InitialiseResources();
+  Custom_Log("Loaded Race Resources");
   self:InitialiseEventManager(self.RaceIdentifier);
+  Custom_Log("Loaded Race Events");
 end
 
-function Controller:InitialiseResources(raceIdentifier)
-  self.RaceResources = {
-    CharacterSettings = _G[raceIdentifier.."CharacterSettings"],
-    SpecialCharacters = _G[raceIdentifier.."SpecialCharacters"],
-    Names = _G[raceIdentifier.."Names"],
-    Archetypes = _G[raceIdentifier.."Archetypes"],
-    Titles = _G[raceIdentifier.."Titles"],
-    SocialClasses = _G[raceIdentifier.."SocialClasses"],
-    Religions = _G[raceIdentifier.."Religions"],
-    Traits = _G[raceIdentifier.."Traits"],
-    Actions = _G[raceIdentifier.."Actions"],
-    Backgrounds = _G[raceIdentifier.."Backgrounds"],
-    Natures = _G[raceIdentifier.."Natures"],
-    Careers = _G[raceIdentifier.."Careers"],
-    SpecialFactions = _G[raceIdentifier.."SpecialFactions"],
-    FactionTemplates = _G[raceIdentifier.."FactionTemplates"],
-    FactionNamePools =  _G[raceIdentifier.."FactionNamePools"],
-    Districts = _G[raceIdentifier.."Districts"],
-    SpecialDistricts = _G[raceIdentifier.."SpecialDistricts"],
-    Webs = _G[raceIdentifier.."Webs"],
-  }
-end
+function Controller:InitialiseResources()
+  self.RaceResources = _G[self.RaceIdentifier.."Resources"];
+  --[[if _G.DarkElfResources then
+    Custom_Log("Found Dark Elf Resources");
+  else
+    Custom_Log("NOT found Dark Elf Resources");
+  end
 
-function Controller:LoadRaceNamespaces()
-  local racePath = 'script/_lib/Resources/'..self.RaceIdentifier;
-  local raceWebPath = racePath..'/WebData/';
-  local raceCharPath = racePath..'/CharacterData/';
-  local raceEventPath = racePath..'/EventData/';
-  -- Web Data
-  require (raceWebPath..'SpecialCharacters/'..self.RaceIdentifier..'SpecialCharacters');
-  require (raceWebPath..'Religions/'..self.RaceIdentifier..'Religions')
-  require (raceWebPath..'Factions/'..self.RaceIdentifier..'SpecialFactions')
-  require (raceWebPath..'Factions/'..self.RaceIdentifier..'FactionTemplates')
-  require (raceWebPath..'Factions/'..self.RaceIdentifier..'FactionNamePools')
-  require (raceWebPath..'Webs/'..self.RaceIdentifier..'Webs')
-  require (raceWebPath..'Webs/'..self.RaceIdentifier..'SpecialDistricts')
-  require (raceWebPath..'Webs/'..self.RaceIdentifier..'Districts')
-  -- Character Data
-  require (raceCharPath..'CharacterSettings/'..self.RaceIdentifier..'CharacterSettings')
-  require (raceCharPath..'Names/'..self.RaceIdentifier..'Names')
-  require (raceCharPath..'Archetypes/'..self.RaceIdentifier..'Archetypes')
-  require (raceCharPath..'Titles/'..self.RaceIdentifier..'Titles')
-  require (raceCharPath..'SocialClasses/'..self.RaceIdentifier..'SocialClasses')
-  require (raceCharPath..'Traits/'..self.RaceIdentifier..'Traits')
-  require (raceCharPath..'Actions/'..self.RaceIdentifier..'Actions')
-  require (raceCharPath..'Backgrounds/'..self.RaceIdentifier..'Backgrounds')
-  require (raceCharPath..'Natures/'..self.RaceIdentifier..'Natures')
-  require (raceCharPath..'Careers/'..self.RaceIdentifier..'Careers')
-  -- Event Data
-  require (raceEventPath..self.RaceIdentifier..'Events')
+  if _G["DarkElfResources"] then
+    Custom_Log("Found Dark Elf Resources by key identifier");
+  else
+    Custom_Log("NOT Found Dark Elf Resources by key identifier");
+  end
+
+  if _G[self.RaceIdentifier.."Resources"] then
+    Custom_Log("Found Dark Elf Resources by dynamic identifier");
+  else
+    Custom_Log("NOT Found Dark Elf Resources by dynamic identifier");
+  end--]]
 end
 
 function Controller:InitialiseWebs(rootWebKey)
   self.RootNodeUUID =  GetWebUUIDByNameIfAvailable(rootWebKey, nil);
   local raceWebs = CreateWebsForRace(self.RaceResources, rootWebKey, self.RootNodeUUID);
-  WebsOfIntrigue:AddWebs(raceWebs);
+  woi:AddWebs(raceWebs);
 end
 
 function Controller:InitialiseFactions()

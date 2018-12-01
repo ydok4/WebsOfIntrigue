@@ -4,7 +4,7 @@ require 'script/_lib/MVC/Views/WebFrame'
 local politicalWebFrame = nil --: FRAME
 local politicalWebButton = nil; --: BUTTON
   
- function InitialiseUIListeners(webs)
+ function InitialiseUIListeners()
 
   local topBar = find_uicomponent(core:get_ui_root(), "layout", "resources_bar", "topbar_list_parent");
   politicalWebButton = TextButton.new("politicalWebButton", topBar, "TEXT", "Political Web");
@@ -12,7 +12,7 @@ local politicalWebButton = nil; --: BUTTON
   politicalWebButton:PositionRelativeTo(topBar, 100, 0);
   politicalWebButton:RegisterForClick(
     function(context)
-        CreateWebFrame(webs);
+        CreateWebFrame();
     end
   );
   politicalWebButton:SetVisible(true);

@@ -1,4 +1,7 @@
+require 'script/export_helpers__darkelf_resources'
 require 'script/campaign/mod/webs_of_intrigue'
+
+
 
 math.randomseed(os.time())
 

@@ -58,6 +58,6 @@ function Faction:GetCharacterRank(character)
   return nil;
 end
 
-function Faction:GetOrdinalRank(ordinalRankValue, gender)
-  --self.Ranks
+function Faction:GetRankByUUID(rankUUID)
+  return self.Ranks[rankUUID];
 end

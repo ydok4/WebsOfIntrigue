@@ -115,15 +115,17 @@ end
 function GenerateFactionRanks(factionTemplate)
     local ranks = {};
     for key, rankData in pairs(factionTemplate.Ranks) do
-        local rank = GenerateRank(rankData);
-        ranks[#ranks + 1] = rank;
+        local uuid = GenerateUUID();
+        local rank = GenerateRank(rankData, uuid);
+        ranks[uuid] = rank;
     end
     return ranks;
 end
 
-function GenerateRank(rankData)
+function GenerateRank(rankData, uuid)
 
     return Rank:new({
+        UUID = uuid,
         Name = rankData.Name,
         AdditionalMemberships = rankData.AdditionalMemberships,
         Careers = rankData.Careers,

@@ -4,7 +4,7 @@ function Custom_Log(text)
   local logTimeStamp = os.date("%d, %m %Y %X");
   local popLog = io.open("Intrigue_Log.txt","a");
 
-  popLog :write("WebsOfIntrigue:  "..logText .. "    : [" .. logContext .. "] : [".. logTimeStamp .. "]\n");
+  popLog :write("woi:  "..logText .. "    : [" .. logContext .. "] : [".. logTimeStamp .. "]\n");
   popLog :flush();
   popLog :close();
 end

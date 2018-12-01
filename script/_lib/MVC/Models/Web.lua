@@ -27,7 +27,7 @@ function Web:GetFactionsWithTypes(types)
   for key1, district in pairs(self.Districts) do
     for key2, factionUUID in pairs(district.ActiveFactions) do
       for key3, type in pairs(types) do
-        local faction = WebsOfIntrigue:GetFactionByUUID(factionUUID);
+        local faction = woi:GetFactionByUUID(factionUUID);
         if faction:HasType(type) then
           matchingFactions[faction.UUID] = faction;
           break;

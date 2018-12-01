@@ -2,8 +2,16 @@ require 'script/_lib/MVC/Models/Event'
 require 'script/_lib/MVC/Models/EventChain'
 
 function LoadEventResources(raceResources)
+    Custom_Log("Loading Event Resources");
     local eventObjects = {};
+    if not raceResources then
+        Custom_Log("No race resources found");
+        return eventObjects;
+    end
+    
     for key, eventSchema in pairs(raceResources) do
+        Custom_Log("Started event mapping");
+        Custom_Log("Loading Event: "..tostring(key));
         local mappedEvent = MapEventData(eventSchema)
         eventObjects[mappedEvent.Key] = mappedEvent;
     end

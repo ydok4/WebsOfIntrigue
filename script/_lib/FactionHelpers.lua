@@ -1,3 +1,5 @@
+woi = _G.woi;
+
 require 'script/_lib/CharacterHelpers'
 require 'script/_lib/FactionGenerator'
 
@@ -7,9 +9,9 @@ function CreateFactionsForRace(raceResources, raceIdentifier)
     RaceResources = raceResources;
     InitialiseFactionGeneratorForRace(raceResources);
 
-    local raceRootWeb = WebsOfIntrigue:GetRootWebForRace(raceIdentifier);
+    local raceRootWeb = woi:GetRootWebForRace(raceIdentifier);
     for webKey, webUUID in pairs(raceRootWeb.ChildWebs) do
-        local web = WebsOfIntrigue:GetWebByUUID(webUUID);
+        local web = woi:GetWebByUUID(webUUID);
         CreateFactionsForWeb(web);
     end
 
@@ -20,15 +22,16 @@ end
 function CreateFactionsForWeb(web)
     if web.ChildWebs then
         for index, webUUID in pairs(web.ChildWebs) do
-            local childWeb = WebsOfIntrigue:GetWebByUUID(webUUID);
+            local childWeb = woi:GetWebByUUID(webUUID);
             CreateFactionsForWeb(childWeb);
         end
     end
     -- Once we hit the end of the web children start generating factions
-    for districtUUID, district in pairs(web.Districts) do
+    for key, districtUUID in pairs(web.Districts) do
+        local district = woi:GetDistrictByUUID(districtUUID);
         local extraFactions = GetExtraFactionsMatchingDistrict(district.SchemaKey, web);
         local districtFactions = GenerateFactionsForDistrict(web, district, extraFactions);
-        WebsOfIntrigue:AddFactions(districtFactions);
+        woi:AddFactions(districtFactions);
     end
 end
 

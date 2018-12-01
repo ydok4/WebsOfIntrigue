@@ -12,9 +12,9 @@ function NarrativeManager:new (o)
 end
 
 function NarrativeManager:StartTriggerEvents(raceIdentifier)
-    local raceRootWeb = WebsOfIntrigue:GetRootWebForRace(raceIdentifier);
+    local raceRootWeb = woi:GetRootWebForRace(raceIdentifier);
     for webKey, webUUID in pairs(raceRootWeb.ChildWebs) do
-        local web = WebsOfIntrigue:GetWebByUUID(webUUID);
+        local web = woi:GetWebByUUID(webUUID);
         self:TriggerEventsForWeb(web)
     end
     IntrigueManager.CurrentTurn = IntrigueManager.CurrentTurn + 1;
@@ -23,7 +23,7 @@ end
 function NarrativeManager:TriggerEventsForWeb(web)
     if web.ChildWebs then
         for index, webUUID in pairs(web.ChildWebs) do
-            local childWeb = WebsOfIntrigue:GetWebByUUID(webUUID);
+            local childWeb = woi:GetWebByUUID(webUUID);
             self:TriggerEventsForWeb(childWeb);
         end
     end
@@ -101,7 +101,7 @@ function NarrativeManager:PerformCharacterActions(web)
     for characterKey, character in pairs(self.Characters) do
         for goalKey, goal in pairs(character.Goals) do
             local validActions = goal:GetMatchingActions(character.Actions);
-            local selectedAction = GetRandomObjectFromList(validActions);;
+            local selectedAction = GetRandomObjectFromList(validActions);
             character:PerformAction(selectedAction);
         end
     end

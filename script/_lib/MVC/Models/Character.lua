@@ -50,6 +50,32 @@ function Character:GetCharacterName()
   return self.Name.FirstName.." "..self.Name.Surname;
 end
 
+function Character:GetCareerListText()
+  local careerText = "";
+  for key, career in pairs(self.Careers) do
+    if careerText == "" then
+      careerText = career.Name;
+    else
+      careerText =  careerText..", "..career.Name;
+    end
+  end
+
+  return careerText;
+end
+
+function Character:GetFactionMemberships()
+  local factionText = "";
+  for key, membership in pairs(self.Memberships) do
+    if factionText == "" then
+      factionText = membership:GetFormmatedFactionNameAndRank();
+    else
+      factionText =  factionText..", "..membership:GetFormmatedFactionNameAndRank();
+    end
+  end
+
+  return factionText;
+end
+
 function Character:HasFactionMembership(factionUUID)
   if self.Memberships[factionUUID] then
     return true;

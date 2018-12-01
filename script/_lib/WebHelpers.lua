@@ -1,3 +1,5 @@
+woi = _G.woi;
+
 require 'script/_lib/DistrictHelper'
 
 require 'script/_lib/MVC/Models/Web'
@@ -6,8 +8,13 @@ local RaceResources = {};
 local createdWebs = {};
 
 function CreateWebsForRace(raceResources, rootName, rootUUID)
+  Custom_Log("Creating Webs for race initialisation");
   createdWebs = {};
   RaceResources = raceResources;
+  if not RaceResources or not RaceResources["Webs"] then
+    Custom_Log("ERROR: Race Resources not loaded");
+    return createdWebs;
+  end
   local root = CreateWeb(rootName, rootUUID);
   createdWebs[root.UUID] = root;
   RaceResources = {};
@@ -17,7 +24,6 @@ end
 function CreateWeb(webGameKey, webUUID, parentName, parentUUID)
   --  Find the web by name
   local webSchema = RaceResources.Webs[webGameKey];
-
   local uuid = webUUID;
   if uuid == nil then
    uuid = GetWebUUIDByNameIfAvailable(webGameKey, webUUID);
@@ -47,6 +53,7 @@ function CreateWeb(webGameKey, webUUID, parentName, parentUUID)
     local webChildren = {};
     for key, value in pairs(webSchema.ChildWebs) do
       local childUUID = GetWebUUIDByNameIfAvailable(value, nil);
+      Custom_Log("Creating Child web: "..value);
       createdWebs[childUUID] = CreateWeb(value, childUUID, web.Name, web.UUID);
       webChildren[#webChildren + 1] = childUUID;
     end
@@ -58,7 +65,8 @@ function CreateWeb(webGameKey, webUUID, parentName, parentUUID)
     local Districts = {};
     for key, value in pairs(webSchema.Districts) do
       local district = CreateDistrict(RaceResources, value, web);
-      Districts[district.UUID] = district;
+      Districts[district.UUID] = district.UUID;
+      woi:AddDistrict(district);
     end
     web.Districts = Districts;
   end
@@ -67,7 +75,7 @@ function CreateWeb(webGameKey, webUUID, parentName, parentUUID)
 end
 
 function GetWebUUIDByNameIfAvailable(webName, webUUID)
-  if #RaceResources == 0 then
+  if not RaceResources or not RaceResources["Webs"] then
     return GenerateUUID();
   end
 
@@ -75,134 +83,31 @@ function GetWebUUIDByNameIfAvailable(webName, webUUID)
   local webSchema = RaceResources.Webs[webName];
   local uuid = webUUID;
   if webSchema.UUID then
+    Custom_Log("Specified UUID");
     uuid = webSchema.UUID;
   elseif webUUID == nil then
+    Custom_Log("Random UUID");
     uuid = GenerateUUID();
   end
 
   return uuid;
 end
 
-function GetDataForType(webType, webData, webUUID)
-  if not webData then
-    Custom_Log("ERROR: No Web data");
-    return {};
-  end
+function GetDataForType(webType, UUID)
   data = {};
 
   if webType == "District" then
     Custom_Log("Grabbing districts");
-    data = GetDistrictsForWeb(webUUID, webData);
+    data = woi:GetDistrictsForWeb(UUID);
   elseif webType == "Character" then
-    Custom_Log("Grabbing characters: "..webUUID);
-    data = GetCharactersForWeb(webUUID, webData);
+    Custom_Log("Grabbing characters: "..UUID);
+    data = woi:GetCharactersForDistrict(UUID);
   else
     Custom_Log("Grabbing web names");
-    data = GetWebByType(webData, webType);
+    data = woi:GetWebsForType(webType);
   end
   Custom_Log("Finished grabbing text ");
   return data;
-end
-
-function GetWebByUUID(webUUID, webData)
-  local foundWeb = {};
-  for key, web in pairs(webData) do
-    if web.UUID == webUUID then
-      foundWeb = web;
-    end
-    local webResult = SearchChildWebs(webUUID, web);
-    if webResult then
-      foundWeb = webResult;
-      break;
-    end
-  end
-
-  return foundWeb;
-end
-
-function SearchChildWebs(webUUID, web)
-  if not web then
-    return;
-  end
-  for key, childWeb in pairs(web.ChildWebs) do
-    if childWeb.UUID == webUUID then
-      return childWeb;
-    end
-    foundWeb = SearchChildWebs(webUUID, childWeb);
-    if foundWeb then
-      return foundWeb;
-    else
-      return SearchDistricts(webUUID, childWeb);
-    end
-  end
-end
-
-function SearchDistricts(webUUID, web)
-  local foundWeb = {};
-  for key, internalWeb in pairs(web.Districts) do
-    if internalWeb.UUID == webUUID then
-      return internalWeb;
-    end
-
-    foundWeb = SearchDistricts(webUUID, internalWeb);
-    if foundWeb then
-      return foundWeb;
-    end
-  end
-end
-
-
-function GetDistrictsForWeb(webUUID, webData)
-  local foundWeb = GetWebByUUID(webUUID, webData);
-  return foundWeb.Districts;
-end
-
-function GetDistrictsFromWeb(web)
-  local Districts = {};
-  for key, internalWeb in pairs(web.Districts) do
-    Districts[#Districts + 1] = internalWeb;
-  end
-
-  return Districts;
-end
-
-function GetCharactersForWeb(webUUID, webData)
-  local foundWeb = GetWebByUUID(webUUID, webData);
-  return GetCharactersFromInternalWeb(foundWeb);
-end
-
-function GetCharactersFromInternalWeb(web)
-  local characters = {};
-  for key, character in pairs(web.Characters) do
-    characters[#characters + 1] = character;
-  end
-
-  return characters;
-end
-
-function GetWebByType(webData, webType)
-  local webs = {};
-
-  for key, web in pairs(webData) do
-    if web.Type == webType then
-      webs[#webs + 1] = web;
-    end
-    SearchChildWebsForNameWhichMatchesWebType(web, webType, webs);
-  end
-  
-  return webs;
-end
-
-function SearchChildWebsForNameWhichMatchesWebType(web, webType, webs)
-  if not web then
-    return;
-  end
-  for key, childWeb in pairs(web.ChildWebs) do
-    if childWeb.Type == webType then
-      webs[#webs + 1] = childWeb;
-    end
-    SearchChildWebsForNameWhichMatchesWebType(childWeb, webType, webs);
-  end
 end
 
 function GetNextWebType(currentWebType, webHierarchy)

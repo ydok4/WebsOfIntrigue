@@ -178,10 +178,8 @@ end
 function GenerateMembershipForFaction(factionData, rankData)
   local membershipTraits = GenerateMembershipTraits(factionData, rankData);
   return Membership:new({
-    FactionName = factionData.Name,
     FactionUUID = factionData.UUID,
-    Rank = rankData.Name,
-    OrdinalRank = rankData.Ordinal,
+    RankUUID = rankData.UUID,
     IsKnownMember = Roll100(rankData.StealthValue),
     Traits = membershipTraits,
   });

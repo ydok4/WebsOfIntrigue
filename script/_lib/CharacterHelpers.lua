@@ -22,9 +22,9 @@ local RaceSpecialCharactersForWeb = {};
 
 function CreateCharactersForRace(raceResources, raceIdentifier)
   InitialiseRaceData(raceResources);
-  local raceRootWeb = WebsOfIntrigue:GetRootWebForRace(raceIdentifier);
+  local raceRootWeb = woi:GetRootWebForRace(raceIdentifier);
   for key, webUUID in pairs(raceRootWeb.ChildWebs) do
-      local web = WebsOfIntrigue:GetWebByUUID(webUUID);
+      local web = woi:GetWebByUUID(webUUID);
       CreateCharactersForWeb(web);
   end
 end
@@ -52,7 +52,7 @@ end
 function CreateCharactersForWeb(web)
   if web.ChildWebs and #web.ChildWebs > 0 then
     for key, webUUID in pairs(web.ChildWebs) do
-      local childWeb = WebsOfIntrigue:GetWebByUUID(webUUID);
+      local childWeb = woi:GetWebByUUID(webUUID);
       CreateCharactersForWeb(childWeb);
     end
   end
@@ -64,12 +64,13 @@ function CreateCharactersForWeb(web)
   end
 end
 
-function CreateCharactersForDistrict(district)
+function CreateCharactersForDistrict(districtUUID)
+  local district = woi:GetDistrictByUUID(districtUUID);
   for key, factionUUID in pairs(district.ActiveFactions) do
-    local faction = WebsOfIntrigue:GetFactionByUUID(factionUUID);
+    local faction = woi:GetFactionByUUID(factionUUID);
     local factionCharacters = GenerateCharactersForFaction(district, faction);
     district:AddCharacters(factionCharacters);
-    WebsOfIntrigue:AddCharacters(factionCharacters);
+    woi:AddCharacters(factionCharacters);
   end
 
   --[[
@@ -162,7 +163,7 @@ end
 
 function FindFactionWithVacantRank(factionList, rank)
   for index, factionUUID in pairs(factionList) do
-    local faction = WebsOfIntrigue:GetFactionByUUID(factionUUID);
+    local faction = woi:GetFactionByUUID(factionUUID);
     if faction:IsRankPositionAvailable(rank) then
       return faction;
     end
